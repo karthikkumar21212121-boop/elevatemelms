@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElevateMe · Career Bootcamp</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="shared/styles.css">
+    <style>
+        /* ── FONT & GLOBAL STYLES ── */
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            background: #f8faf9; 
+            margin: 0;
+        }
+
+        /* ── DARK HERO / WALLPAPER SECTION ── */
+        .hero {
+            background: #161616; /* Dark "Wallpaper" style from index.html */
+            padding: 4rem 2rem 3rem;
+            text-align: left;
+        }
+        .hero-inner { max-width: 1200px; margin: 0 auto; }
+        
+        .hero-tag {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: rgba(97,154,132,0.15); border: 1px solid rgba(97,154,132,0.3);
+            color: #a8cbbf; padding: 0.3rem 1rem; border-radius: 100px;
+            font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
+            text-transform: uppercase; margin-bottom: 1.4rem;
+        }
+
+        .hero h1 { 
+            font-size: clamp(2rem, 5vw, 3.8rem); color: white; 
+            font-weight: 800; line-height: 1.1; margin-bottom: 1rem; 
+            letter-spacing: -0.02em; 
+        }
+        .hero h1 span { color: #a8cbbf; }
+
+        .hero p { 
+            color: rgba(255,255,255,0.5); font-size: 1rem; 
+            max-width: 480px; line-height: 1.7; margin-bottom: 2.5rem; 
+        }
+
+        /* ── HERO STATS ── */
+        .hero-stats { 
+            display: flex; gap: 3rem; padding-top: 2rem; 
+            border-top: 1px solid rgba(255,255,255,0.08); flex-wrap: wrap; 
+        }
+        .stat-num { font-size: 2.4rem; font-weight: 800; color: #a8cbbf; line-height: 1; }
+        .stat-label { 
+            font-size: 0.72rem; color: rgba(255,255,255,0.4); 
+            text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.2rem; 
+        }
+
+        /* ── SECTION & GRID STYLING ── */
+        .section { max-width: 1200px; margin: 3rem auto; padding: 0 2rem; }
+        .section-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.15em; color: #2d7a4f; font-weight: 700; margin-bottom: 0.4rem; }
+        .section-title { font-size: 1.6rem; font-weight: 800; color: #161616; margin-bottom: 2rem; }
+
+        .overall-progress-wrap { background: white; border-radius: 14px; padding: 1.2rem 1.6rem; margin-bottom: 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.04); border: 1px solid #edf2f0; }
+        .overall-progress-label { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; font-weight: 600; color: #161616; margin-bottom: 0.6rem; }
+        .overall-pct { color: #2d7a4f; }
+        .progress-track { height: 8px; background: #edf2f0; border-radius: 99px; overflow: hidden; }
+        .progress-fill { height: 100%; width: 0%; background: #2d7a4f; transition: width 0.6s ease; }
+
+        .week-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+        .week-card {
+            background: white; border-radius: 16px; overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02); border: 1px solid #edf2f0;
+            text-decoration: none; color: inherit; display: block;
+            transition: all 0.3s ease; position: relative;
+        }
+        .week-card:hover:not(.locked) { transform: translateY(-5px); border-color: #2d7a4f; box-shadow: 0 12px 24px rgba(97,154,132,0.1); }
+        .week-card.locked { opacity: 0.55; cursor: not-allowed; }
+        .week-card.completed { border-left: 4px solid #2d7a4f; }
+        .card-accent-bar { height: 4px; background: #2d7a4f; }
+        .card-body { padding: 1.8rem; }
+        .week-num-label { color: #2d7a4f; text-transform: uppercase; font-weight: 700; font-size: 0.72rem; letter-spacing: 0.1em; margin-bottom: 0.6rem; display: block; }
+        .week-card h3 { font-size: 1.2rem; font-weight: 800; color: #161616; margin-bottom: 0.5rem; }
+        .week-card p { font-size: 0.84rem; color: #7f8c8d; line-height: 1.6; margin-bottom: 1.2rem; }
+        .card-progress-bar { height: 5px; background: #edf2f0; border-radius: 99px; overflow: hidden; }
+        .card-progress-fill { height: 100%; width: 0%; background: #2d7a4f; border-radius: 99px; transition: width 0.4s ease; }
+        .card-footer-row { display: flex; align-items: center; justify-content: space-between; margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid #f1f1f1; }
+        .card-meta { display: flex; gap: 1rem; font-size: 0.78rem; color: #7f8c8d; }
+        .card-arrow { width: 30px; height: 30px; background: #2d7a4f; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.7rem; }
+        
+        .lock-badge, .done-badge { position: absolute; top: 1rem; right: 1rem; color: white; border-radius: 50%; width: 26px; height: 26px; display: none; align-items: center; justify-content: center; font-size: 0.7rem; }
+        .lock-badge { background: #b2bec3; }
+        .done-badge { background: #2d7a4f; }
+        .week-card.locked .lock-badge { display: flex; }
+        .week-card.completed .done-badge { display: flex; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="logo-area" href="/"></a>
+    <div class="nav-links">
+        <span class="admin-badge"><i class="fas fa-shield-alt"></i> Admin Mode</span>
+        <a href="/" class="active">Dashboard</a>
+        <a href="#" class="btn-accent">Student Portal</a>
+    </div>
+</nav>
+
+<div class="hero">
+    <div class="hero-inner">
+        <div class="hero-tag"><i class="fas fa-bolt"></i> Career Bootcamp · 10 Weeks</div>
+        <h1>Elevate Your <span>Career</span><br>With Confidence</h1>
+        <p>From ATS and resume mastery to behavioral interviews — a structured 10-week program built to get you hired in the US job market.</p>
+        <div class="hero-stats">
+            <div><div class="stat-num">10</div><div class="stat-label">Intensive Weeks</div></div>
+            <div><div class="stat-num">18+</div><div class="stat-label">Modules</div></div>
+            <div><div class="stat-num">2</div><div class="stat-label">Live Coaches</div></div>
+            <div><div class="stat-num">100%</div><div class="stat-label">Job-Ready</div></div>
+        </div>
+    </div>
+</div>
+
+<div class="section" id="curriculum">
+    <div class="overall-progress-wrap">
+        <div class="overall-progress-label">
+            <span>Overall Bootcamp Progress</span>
+            <span class="overall-pct" id="overallPct">0%</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="overallBar"></div></div>
+    </div>
+
+    <div class="section-label">Curriculum</div>
+    <div class="section-title">Your 10-Week Journey</div>
+
+    <div class="week-grid" id="weekGrid"></div>
+</div>
+
+<div class="footer-hint">
+    <span><i class="far fa-copyright"></i> ElevateMe – 10-Week Career Bootcamp</span>
+    <span><i class="fas fa-video"></i> 10 weeks · All modules</span>
+</div>
+
+<div class="toast" id="toast"><i class="fas fa-check-circle"></i> <span id="toastMsg"></span></div>
+
+<script>
+const IS_ADMIN = new URLSearchParams(location.search).get('admin') === 'true';
+if (IS_ADMIN) document.body.classList.add('is-admin');
+
+// CUSTOM LOGO (Corrected)
+document.querySelectorAll('.logo-area').forEach(el => {
+    el.innerHTML = `<span style="font-size:1.3rem;font-weight:900;letter-spacing:-0.02em;color:#161616;">Elevate<span style="color:#2d7a4f;">Me</span></span>`;
+});
+
+// FULL 10-WEEK CURRICULUM RESTORED
+const WEEKS = [
+    { n:1, title:'Foundations & Job Search',      desc:'Welcome, job search worksheet, coach calls, time management.', icon:'fa-flag',       modules:5, url:'week1/' },
+    { n:2, title:'ATS & Resume Mastery',           desc:'ATS systems, resume structure, LinkedIn, recruitment process.', icon:'fa-file-lines', modules:10, url:'week2/' },
+    { n:3, title:'Elevator Pitch & Mock Interview', desc:'Crafting your pitch, pre-interview checklist, practice activity.', icon:'fa-message',  modules:4, url:'week3/' },
+    { n:4, title:'Communication Skills',            desc:'Communication, imposter syndrome, self-esteem, coach call.',    icon:'fa-brain',      modules:4, url:'week4/' },
+    { n:5, title:'Preparing for Interviews',        desc:'2nd round prep, STAR stories, behavioural mock interview.',     icon:'fa-user-group', modules:3, url:'week5/' },
+    { n:6, title:'Networking on LinkedIn',          desc:'Interpersonal skills, networking tips, 5 networking messages.', icon:'fa-network-wired', modules:5, url:'week6/' },
+    { n:7, title:'Informational Interviews',         desc:'Follow-up emails, informational interviews, body language.',    icon:'fa-comments',   modules:6, url:'week7/' },
+    { n:8, title:'Handling Job Offers',              desc:'Evaluating offers, salary negotiation, negotiation script.',     icon:'fa-file-signature', modules:4, url:'week8/' },
+    { n:9, title:'Cultural Sensitivity',             desc:'Workplace culture, cross-cultural communication, reflection.',   icon:'fa-globe',       modules:3, url:'week9/' },
+    { n:10, title:'Success on the Job',              desc:'30-60-90 day plan, 5-year roadmap, career success habits.',      icon:'fa-trophy',      modules:3, url:'week10/' },
+];
+
+function getWeekProgress(n) { return parseInt(localStorage.getItem(`em_week${n}_progress`) || '0'); }
+function isWeekComplete(n) { return getWeekProgress(n) >= 100; }
+
+function renderGrid() {
+    const grid = document.getElementById('weekGrid');
+    grid.innerHTML = '';
+    let totalPct = 0;
+    WEEKS.forEach(w => { totalPct += getWeekProgress(w.n); });
+    const overall = Math.round(totalPct / WEEKS.length);
+    document.getElementById('overallBar').style.width = overall + '%';
+    document.getElementById('overallPct').textContent  = overall + '%';
+
+    WEEKS.forEach((w, i) => {
+        const pct = getWeekProgress(w.n);
+        const locked = i > 0 && !isWeekComplete(WEEKS[i-1].n);
+        const done = isWeekComplete(w.n);
+        const card = document.createElement('a');
+        card.href = locked ? '#' : (IS_ADMIN ? `${w.url}?admin=true` : w.url);
+        card.className = 'week-card' + (locked ? ' locked' : '') + (done ? ' completed' : '');
+        card.innerHTML = `
+            <div class="lock-badge"><i class="fas fa-lock"></i></div>
+            <div class="done-badge"><i class="fas fa-check"></i></div>
+            <div class="card-accent-bar"></div>
+            <div class="card-body">
+                <span class="week-num-label">Week ${w.n}</span>
+                <h3>${w.title}</h3>
+                <p>${w.desc}</p>
+                <div class="card-progress-bar"><div class="card-progress-fill" style="width:${pct}%"></div></div>
+                <div class="card-footer-row">
+                    <div class="card-meta"><span><i class="fas ${w.icon}"></i> ${w.modules} modules</span></div>
+                    <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+                </div>
+            </div>`;
+        if (locked) {
+            card.addEventListener('click', e => {
+                e.preventDefault();
+                const t = document.getElementById('toast');
+                document.getElementById('toastMsg').textContent = `Complete Week ${w.n - 1} first to unlock this week`;
+                t.classList.add('show');
+                setTimeout(() => t.classList.remove('show'), 2500);
+            });
+        }
+        grid.appendChild(card);
+    });
+}
+renderGrid();
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+[[redirects]]
+  from = "/week10"
+  to   = "/week10/"
+  status = 301
+
+[[redirects]]
+  from = "/week9"
+  to   = "/week9/"
+  status = 301
+
+[[redirects]]
+  from = "/week8"
+  to   = "/week8/"
+  status = 301
+
+[[redirects]]
+  from = "/week7"
+  to   = "/week7/"
+  status = 301
+
+[[redirects]]
+  from = "/week6"
+  to   = "/week6/"
+  status = 301
+
+[[redirects]]
+  from = "/week1"
+  to   = "/week1/"
+  status = 301
+
+[[redirects]]
+  from = "/week2"
+  to   = "/week2/"
+  status = 301
+
+[[redirects]]
+  from = "/week3"
+  to   = "/week3/"
+  status = 301
+
+[[redirects]]
+  from = "/week4"
+  to   = "/week4/"
+  status = 301
+
+[[redirects]]
+  from = "/week5"
+  to   = "/week5/"
+  status = 301
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"

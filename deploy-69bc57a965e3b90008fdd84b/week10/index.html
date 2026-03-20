@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElevateMe · Week 10: Success on the Job</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../shared/styles.css">
+    <style>
+        /* 30-60-90 day plan grid */
+        .plan-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:1rem; }
+        .plan-card { border-radius:14px; padding:1.2rem; border:1px solid #edf2f0; }
+        .plan-card-header { display:flex; align-items:center; gap:0.7rem; margin-bottom:0.9rem; }
+        .plan-card-icon { width:36px; height:36px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:0.9rem; flex-shrink:0; color:white; }
+        .plan-card h4 { font-size:0.9rem; font-weight:800; }
+        .plan-card ul { list-style:none; padding:0; }
+        .plan-card ul li { font-size:0.82rem; padding:0.3rem 0; border-bottom:1px solid #f5f5f5; color:#636e72; display:flex; gap:0.5rem; }
+        .plan-card ul li:last-child { border-bottom:none; }
+        .plan-card ul li::before { content:'→'; color:var(--brand-teal); font-size:0.75rem; flex-shrink:0; margin-top:1px; }
+        @media(max-width:600px){ .plan-grid { grid-template-columns:1fr; } }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="logo-area" href="../"></a>
+    <div class="nav-links">
+        <span class="admin-badge"><i class="fas fa-shield-alt"></i> Admin Mode</span>
+        <a href="../">Dashboard</a>
+        <a href="#" class="active">Week 10</a>
+        <a href="#" class="btn-accent">Student Portal</a>
+    </div>
+</nav>
+
+<div class="week-shell">
+    <aside class="week-sidebar">
+        <div class="sidebar-header">
+            <a href="../" class="sidebar-back"><i class="fas fa-arrow-left"></i> Dashboard</a>
+            <div class="sidebar-phase">Phase 10</div>
+            <div class="sidebar-week-title">Week 10: Success on the Job</div>
+        </div>
+        <div class="sidebar-progress">
+            <div class="sidebar-progress-label">
+                <span>Progress</span>
+                <strong class="week-pct" data-week="10">0%</strong>
+            </div>
+            <div class="progress-track"><div class="progress-fill week-fill" data-week="10"></div></div>
+        </div>
+        <nav class="sidebar-modules" id="weekSidebar"></nav>
+        <div class="sidebar-nav">
+            <button class="sidebar-nav-btn" id="w10-prev" onclick="navigateModule(10,-1)"><i class="fas fa-chevron-up"></i> Prev</button>
+            <button class="sidebar-nav-btn" id="w10-next" onclick="navigateModule(10,1)">Next <i class="fas fa-chevron-down"></i></button>
+        </div>
+    </aside>
+    <div class="week-content" id="weekContent"></div>
+</div>
+
+<div class="footer-hint">
+    <span><i class="far fa-copyright"></i> ElevateMe</span>
+    <span>Week 10 — Final Week 🎉</span>
+</div>
+<div class="toast" id="toast"><i class="fas fa-check-circle"></i> <span id="toastMsg"></span></div>
+
+<script src="../shared/app.js"></script>
+<script>
+const MODULES = [
+
+  /* ── 1. Success on the Job — PPT link, no video ── */
+  {
+    id:'w10m1', icon:'fa-trophy', title:'Success on the Job', subtitle:'Thrive from day one',
+    hasVideo:false,
+    notes:`
+      <p style="margin-bottom:1rem;">In this module, we will cover the essential habits and strategies that will help you thrive once you land your role. You'll learn how to set clear goals, integrate into your team, and communicate effectively with colleagues and managers.</p>
+      <p style="margin-bottom:1rem;">We will also focus on maintaining productivity, adapting to company culture, receiving feedback, and continuously growing in your role.</p>
+      <p style="margin-bottom:1.2rem;">By the end of this module, you'll feel confident in your ability to make a strong impact and create long-term success in your career.</p>
+
+      <div style="background:#f0f7f4;border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:1.2rem;">
+        <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--brand-teal);margin-bottom:0.9rem;"><i class="fas fa-lightbulb" style="margin-right:6px;"></i>Key Habits for Early Success at Work</p>
+        <ul class="worksheet-bullets">
+          <li><i class="fas fa-check-circle"></i> <strong>Set clear goals</strong> — Align your personal goals with your manager's expectations from week one</li>
+          <li><i class="fas fa-check-circle"></i> <strong>Integrate into your team</strong> — Build relationships deliberately, not just professionally</li>
+          <li><i class="fas fa-check-circle"></i> <strong>Communicate proactively</strong> — Over-communicate in your first 90 days — keep your manager informed</li>
+          <li><i class="fas fa-check-circle"></i> <strong>Maintain productivity</strong> — Time management habits from this bootcamp apply directly here</li>
+          <li><i class="fas fa-check-circle"></i> <strong>Adapt to company culture</strong> — Observe first, then contribute your perspective</li>
+          <li><i class="fas fa-check-circle"></i> <strong>Receive feedback well</strong> — Ask for feedback proactively and act on it visibly</li>
+          <li><i class="fas fa-check-circle"></i> <strong>Keep growing</strong> — Identify learning opportunities and request a development plan within 60 days</li>
+        </ul>
+      </div>
+
+      <div style="background:#eef7f2;border-radius:14px;padding:1rem 1.4rem;border:1px solid #c8e6d8;">
+        <p style="font-size:0.84rem;"><i class="fas fa-file-powerpoint" style="color:var(--brand-teal);margin-right:8px;"></i><strong>Presentation Slides:</strong> Access the full Success on the Job presentation below for detailed content and frameworks.</p>
+      </div>`,
+    takeaways:[
+      'The first 90 days set your reputation at a company — be intentional, visible, and proactive.',
+      'Asking for feedback early shows maturity and initiative — most managers will respect you for it.',
+      'Your technical skills got you hired. Your soft skills, cultural fit, and attitude will determine how far you go.'
+    ],
+    action:'Before starting your new role, write down 3 specific goals you want to achieve in your first 30 days. Share them with your manager in your first week.',
+    resources:[
+      {label:'Success on the Job — Full Presentation', icon:'fa-file-powerpoint', tag:'Slides', url:'https://docs.google.com/presentation/d/1hLrtK8ZYpEa0TJ7IE3xaWUux0V9uSnTz/edit?usp=sharing'},
+      {label:'How To Succeed in Your New Job', icon:'fa-external-link-alt', tag:'Article', url:'#'},
+      {label:'Career Planning Guide', icon:'fa-external-link-alt', tag:'Guide', url:'#'}
+    ]
+  },
+
+  /* ── 2. Book a Call with Career Coach — NO VIDEO ── */
+  {
+    id:'w10m2', icon:'fa-calendar-alt', title:'Book a Call with your Career Coach', subtitle:'Final coaching session',
+    hasVideo:false,
+    notes:`
+      <p style="margin-bottom:1.2rem;">This is your final coaching call of the 10-week bootcamp. Use this session to review your 30-60-90 day plan, discuss your 5-year career roadmap, and get any last guidance before you step into your new role. We are proud of how far you have come!</p>
+      <div style="display:flex;flex-wrap:wrap;gap:1.2rem;margin-bottom:1.2rem;">
+        <div style="flex:1;min-width:220px;background:#f4faf7;border-radius:14px;padding:1.2rem;">
+          <div style="display:flex;gap:0.8rem;align-items:center;margin-bottom:0.8rem;"><div class="coach-avatar">NV</div><strong>Nitti Vidhu Mohan</strong></div>
+          <p style="font-size:0.84rem;line-height:1.9;">
+            <i class="fas fa-calendar" style="color:var(--brand-teal);width:18px;"></i> <a href="https://calendly.com/nitti-v" target="_blank" style="color:var(--brand-teal);">calendly.com/nitti-v</a><br>
+            <i class="fas fa-envelope" style="color:var(--brand-teal);width:18px;"></i> nitti.v@elevateme.pro<br>
+            <i class="fas fa-phone" style="color:var(--brand-teal);width:18px;"></i> 614-559-3829
+          </p>
+        </div>
+        <div style="flex:1;min-width:220px;background:#f4faf7;border-radius:14px;padding:1.2rem;">
+          <div style="display:flex;gap:0.8rem;align-items:center;margin-bottom:0.8rem;"><div class="coach-avatar">DR</div><strong>Dr. Divina Raghav</strong></div>
+          <p style="font-size:0.84rem;line-height:1.9;">
+            <i class="fas fa-calendar" style="color:var(--brand-teal);width:18px;"></i> <a href="https://tidycal.com/divinar" target="_blank" style="color:var(--brand-teal);">tidycal.com/divinar</a><br>
+            <i class="fas fa-envelope" style="color:var(--brand-teal);width:18px;"></i> divina.r@elevateme.pro<br>
+            <i class="fas fa-phone" style="color:var(--brand-teal);width:18px;"></i> 614-585-5715
+          </p>
+        </div>
+      </div>
+      <div style="background:#f0f7f4;border-radius:14px;padding:1rem 1.4rem;font-size:0.84rem;line-height:1.9;">
+        <strong>Instructions:</strong><br>
+        1. Click the booking link to open the calendar<br>
+        2. Choose a date and time that works for you<br>
+        3. Fill in your name, email, and topics you'd like to discuss<br>
+        4. Confirm — you'll receive a Zoom link via email<br>
+        5. Join on time. Reschedule at least 12 hours in advance.<br>
+        6. For any emergency: nitti.v@elevateme.pro<br><br>
+        <strong>Call Duration:</strong> 30 minutes &nbsp;·&nbsp; <strong>Cadence:</strong> 1 call per week<br><br>
+        <strong>Important:</strong> Please come prepared with your 30-60-90 day plan and 5-year career roadmap to make the most of this final session.
+      </div>`,
+    takeaways:[
+      'Use this final session to get your coach\'s review of your 30-60-90 day plan before you start your new role.',
+      'Your relationship with your coach does not have to end here — stay in touch as your career evolves.',
+      'Come with your 5-year roadmap ready — your coach can help you validate and refine it.'
+    ],
+    action:'Book your final Week 10 coach call. Bring your completed 30-60-90 day plan and 5-year career roadmap to review together.',
+    resources:[
+      {label:'Book with Nitti – Calendly', icon:'fa-calendar-check', tag:'Book', url:'https://calendly.com/nitti-v'},
+      {label:'Book with Dr. Divina – TidyCal', icon:'fa-calendar-check', tag:'Book', url:'https://tidycal.com/divinar'}
+    ]
+  },
+
+  /* ── 3. Practice Activity — NO VIDEO ── */
+  {
+    id:'w10m3', icon:'fa-map-signs', title:'Practice Activity — 30-60-90 Day Plan & 5-Year Roadmap', subtitle:'Your career blueprint',
+    hasVideo:false,
+    notes:`
+      <p style="margin-bottom:1.2rem;">This final practice activity is your most important one. You are building two documents that will guide your entire career trajectory.</p>
+
+      <!-- 30-60-90 Day Plan -->
+      <div style="background:#f0f7f4;border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:1.2rem;">
+        <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--brand-teal);margin-bottom:0.9rem;"><i class="fas fa-calendar-check" style="margin-right:6px;"></i>Activity 1 — Build Your 30-60-90 Day Plan</p>
+        <p style="font-size:0.88rem;margin-bottom:1rem;">For each phase, define your goals, key actions, and how you will measure success.</p>
+        <div class="plan-grid">
+          <div class="plan-card" style="background:#eef7f2;border-color:#c8e6d8;">
+            <div class="plan-card-header">
+              <div class="plan-card-icon" style="background:#2d7a4f;"><i class="fas fa-seedling"></i></div>
+              <h4 style="color:#0a1a0f;">First 30 Days<br><small style="font-weight:400;color:#4a6b55;">Learn</small></h4>
+            </div>
+            <ul>
+              <li>Understand your team, role, and processes</li>
+              <li>Build relationships with colleagues & manager</li>
+              <li>Complete all onboarding & training</li>
+              <li>Identify quick wins you can deliver</li>
+            </ul>
+          </div>
+          <div class="plan-card" style="background:#fff8f0;border-color:#fce4c0;">
+            <div class="plan-card-header">
+              <div class="plan-card-icon" style="background:#d97706;"><i class="fas fa-chart-line"></i></div>
+              <h4 style="color:#78350f;">Days 31–60<br><small style="font-weight:400;color:#92400e;">Contribute</small></h4>
+            </div>
+            <ul>
+              <li>Take ownership of your first project or task</li>
+              <li>Apply feedback from your first 30 days</li>
+              <li>Propose at least one improvement</li>
+              <li>Request a mid-point check-in with manager</li>
+            </ul>
+          </div>
+          <div class="plan-card" style="background:#f0f4ff;border-color:#c7d2fe;">
+            <div class="plan-card-header">
+              <div class="plan-card-icon" style="background:#4338ca;"><i class="fas fa-rocket"></i></div>
+              <h4 style="color:#1e1b4b;">Days 61–90<br><small style="font-weight:400;color:#3730a3;">Lead</small></h4>
+            </div>
+            <ul>
+              <li>Deliver measurable results on your first project</li>
+              <li>Mentor or support a newer team member</li>
+              <li>Share your 90-day learnings with your manager</li>
+              <li>Define your goals for the next 6 months</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5-Year Roadmap -->
+      <div style="background:#f0f7f4;border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:1.2rem;">
+        <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--brand-teal);margin-bottom:0.9rem;"><i class="fas fa-road" style="margin-right:6px;"></i>Activity 2 — Create Your 5-Year Career Roadmap</p>
+        <p style="font-size:0.88rem;margin-bottom:0.8rem;">Map out where you want to be in 1, 3, and 5 years. For each milestone, define the role, the skills you need, and the actions you will take to get there.</p>
+        <ul class="worksheet-bullets">
+          <li><i class="fas fa-check-circle"></i> <strong>Year 1:</strong> What role and level do you want to be at? What skills will you develop?</li>
+          <li><i class="fas fa-check-circle"></i> <strong>Year 3:</strong> What promotion or career move are you targeting? What experience do you need to build?</li>
+          <li><i class="fas fa-check-circle"></i> <strong>Year 5:</strong> What is your ultimate career goal? Leadership, specialisation, entrepreneurship?</li>
+          <li><i class="fas fa-check-circle"></i> For each year, identify 1–2 certifications, courses, or experiences that will accelerate your growth.</li>
+        </ul>
+      </div>
+
+      <div style="background:#eef7f2;border-radius:14px;padding:1rem 1.4rem;margin-bottom:1rem;border:1px solid #c8e6d8;">
+        <p style="font-size:0.84rem;"><i class="fas fa-lightbulb" style="color:var(--brand-teal);margin-right:8px;"></i><strong>Tip:</strong> Your 5-year roadmap doesn't have to be perfect — it just has to be intentional. It will evolve as your career does. The act of writing it down is what makes it powerful.</p>
+      </div>
+
+      <div style="background:#1a1a1a;border-radius:14px;padding:1.4rem;margin-top:0.5rem;">
+        <p style="font-size:1rem;font-weight:800;color:white;text-align:center;margin-bottom:0.5rem;">🎉 Congratulations on completing the ElevateMe 10-Week Career Bootcamp!</p>
+        <p style="font-size:0.88rem;color:rgba(255,255,255,0.7);text-align:center;line-height:1.7;">You have built the skills, mindset, and strategies to land and succeed in your dream role. Stay persistent, keep networking, and reach out to your coaches whenever you need support. The best is yet to come. Good luck! 🚀</p>
+      </div>`,
+    takeaways:[
+      'A written 30-60-90 day plan turns your first weeks from reactive to intentional — share it with your manager.',
+      'A 5-year roadmap gives you direction without rigidity — revisit and revise it every 6–12 months.',
+      'The skills from this bootcamp — communication, networking, interviewing, negotiation — serve you for your entire career.'
+    ],
+    action:'Complete your 30-60-90 day plan and 5-year career roadmap this week. Bring both documents to your final coaching session for review.',
+    resources:[
+      {label:'Success on the Job — Full Presentation', icon:'fa-file-powerpoint', tag:'Slides', url:'https://docs.google.com/presentation/d/1hLrtK8ZYpEa0TJ7IE3xaWUux0V9uSnTz/edit?usp=sharing'},
+      {label:'How To Succeed in Your New Job', icon:'fa-external-link-alt', tag:'Article', url:'#'},
+      {label:'Career Planning Guide', icon:'fa-external-link-alt', tag:'Guide', url:'#'}
+    ]
+  }
+
+];
+
+buildWeekPage(10, MODULES);
+</script>
+</body>
+</html>

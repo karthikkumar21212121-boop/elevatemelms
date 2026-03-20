@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElevateMe · Week 6: Networking on LinkedIn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../shared/styles.css">
+    <style>
+        .message-card { background:white; border-radius:12px; padding:1.2rem 1.4rem; border:1px solid #edf2f0; margin-bottom:0.8rem; display:flex; align-items:flex-start; gap:1rem; box-shadow:0 2px 8px rgba(0,0,0,0.03); }
+        .message-card-icon { width:40px; height:40px; border-radius:10px; background:var(--brand-teal); color:white; display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0; }
+        .message-card h4 { font-size:0.88rem; font-weight:700; color:var(--brand-dark); margin-bottom:0.2rem; }
+        .message-card p { font-size:0.82rem; color:#7f8c8d; line-height:1.5; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="logo-area" href="../"></a>
+    <div class="nav-links">
+        <span class="admin-badge"><i class="fas fa-shield-alt"></i> Admin Mode</span>
+        <a href="../">Dashboard</a>
+        <a href="#" class="active">Week 6</a>
+        <a href="#" class="btn-accent">Student Portal</a>
+    </div>
+</nav>
+
+<div class="week-shell">
+    <aside class="week-sidebar">
+        <div class="sidebar-header">
+            <a href="../" class="sidebar-back"><i class="fas fa-arrow-left"></i> Dashboard</a>
+            <div class="sidebar-phase">Phase 06</div>
+            <div class="sidebar-week-title">Week 6: Networking on LinkedIn</div>
+        </div>
+        <div class="sidebar-progress">
+            <div class="sidebar-progress-label">
+                <span>Progress</span>
+                <strong class="week-pct" data-week="6">0%</strong>
+            </div>
+            <div class="progress-track"><div class="progress-fill week-fill" data-week="6"></div></div>
+        </div>
+        <nav class="sidebar-modules" id="weekSidebar"></nav>
+        <div class="sidebar-nav">
+            <button class="sidebar-nav-btn" id="w6-prev" onclick="navigateModule(6,-1)"><i class="fas fa-chevron-up"></i> Prev</button>
+            <button class="sidebar-nav-btn" id="w6-next" onclick="navigateModule(6,1)">Next <i class="fas fa-chevron-down"></i></button>
+        </div>
+    </aside>
+    <div class="week-content" id="weekContent"></div>
+</div>
+
+<div class="footer-hint">
+    <span><i class="far fa-copyright"></i> ElevateMe</span>
+    <span>Week 6</span>
+</div>
+<div class="toast" id="toast"><i class="fas fa-check-circle"></i> <span id="toastMsg"></span></div>
+
+<script src="../shared/app.js"></script>
+<script>
+const MODULES = [
+
+  /* ── 1. Interpersonal / People Skills ── */
+  {
+    id:'w6m1', icon:'fa-people-arrows', title:'Interpersonal / People Skills', subtitle:'Essential workplace skills',
+    hasVideo:true,
+    videoUrl:'https://drive.google.com/file/d/1JDd9PJrvocM_Y47m8E7ztabzgl8KvrvC/view?usp=drive_link',
+    notes:`
+      <p style="margin-bottom:1rem;">Mastering interpersonal and people skills at the workplace is very important. This module focuses on developing essential interpersonal skills, often referred to as "people skills." They impact how effectively you communicate, collaborate, and build relationships with others. Understanding and practicing these skills can help you excel in both professional settings and interviews.</p>
+      <div style="background:#f0f7f4;border-radius:14px;padding:1.2rem 1.4rem;">
+        <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--brand-teal);margin-bottom:0.7rem;"><i class="fas fa-play-circle" style="margin-right:6px;"></i>Key Topics Covered</p>
+        <ul class="worksheet-bullets">
+          <li><i class="fas fa-check-circle"></i> What Are Interpersonal Skills?</li>
+          <li><i class="fas fa-check-circle"></i> Difference Between Interpersonal and Communication Skills</li>
+          <li><i class="fas fa-check-circle"></i> Using Interpersonal Skills in the Job Search</li>
+          <li><i class="fas fa-check-circle"></i> Showing Interpersonal Skills During Interviews</li>
+          <li><i class="fas fa-check-circle"></i> Elements of Effective Interpersonal Communication</li>
+        </ul>
+      </div>
+      <p style="margin-top:1rem;font-size:0.88rem;">By the end of this module, you'll understand the importance of interpersonal skills, how to demonstrate them in professional settings, and how they can contribute to your success in interviews and teamwork.</p>`,
+    takeaways:[
+      'Interpersonal skills are what get you hired — technical skills are what keep you employed.',
+      'Interviewers assess your people skills from the moment you enter the room — first impressions are formed in seconds.',
+      'Demonstrating empathy, active listening, and adaptability sets you apart from equally qualified candidates.'
+    ],
+    action:'Identify your top 3 interpersonal strengths. Prepare a specific example for each that you can share in an interview.',
+    resources:[
+      {label:'What Interviewers Notice First in an Interview', icon:'fa-eye', tag:'Article', url:'#'}
+    ]
+  },
+
+  /* ── 2. Networking and its Importance ── */
+  {
+    id:'w6m2', icon:'fa-network-wired', title:'Networking and its Importance', subtitle:'Why 80% of jobs are hidden',
+    hasVideo:true,
+    videoUrl:'https://drive.google.com/file/d/14_ycH0H-yWHB3r9x4aVAlt1JvQmDwQ-6/view?usp=drive_link',
+    notes:`
+      <p style="margin-bottom:1rem;">This module focuses on the importance of networking and how it can open doors to new job opportunities. Networking is not just about building contacts — it's about exchanging valuable information, developing professional relationships, and advancing your career. This is especially crucial in the job market, where <strong>80% of roles are found through networking</strong>.</p>
+      <div style="background:#f0f7f4;border-radius:14px;padding:1.2rem 1.4rem;">
+        <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--brand-teal);margin-bottom:0.7rem;"><i class="fas fa-play-circle" style="margin-right:6px;"></i>Key Topics Covered</p>
+        <ul class="worksheet-bullets">
+          <li><i class="fas fa-check-circle"></i> What is Networking?</li>
+          <li><i class="fas fa-check-circle"></i> Why Networking is Critical for Your Career</li>
+          <li><i class="fas fa-check-circle"></i> How to Network Effectively (Online &amp; Offline)</li>
+          <li><i class="fas fa-check-circle"></i> Building and Nurturing Your Professional Network</li>
+        </ul>
+      </div>
+      <p style="margin-top:1rem;font-size:0.88rem;">By the end of this module, you'll have the knowledge and tools to become an effective networker, significantly enhancing your job search and career development.</p>`,
+    takeaways:[
+      '80% of jobs are filled through networking — most roles are never publicly posted.',
+      'Networking is about building genuine relationships, not collecting contacts.',
+      'Start with who you already know — your existing network is larger than you think.'
+    ],
+    action:'List 10 people already in your network — classmates, professors, former colleagues, family contacts. These are your starting points.',
+    resources:[]
+  },
+
+  /* ── 3. Networking Tips ── */
+  {
+    id:'w6m3', icon:'fa-handshake', title:'Networking Tips', subtitle:'Advanced strategies',
+    hasVideo:true,
+    videoUrl:'https://drive.google.com/file/d/1mj5i5t8fh99tLOA9lykKwgfF0QUNcpX1/view?usp=drive_link',
+    notes:`
+      <p style="margin-bottom:1rem;">Here, you will dive deeper into mastering the art of networking, focusing on building genuine relationships, adding value to your network, and maintaining those connections over time. You'll also explore strategies for engaging on social media platforms and utilizing your existing network to grow your professional circle.</p>
+      <div style="background:#f0f7f4;border-radius:14px;padding:1.2rem 1.4rem;">
+        <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--brand-teal);margin-bottom:0.7rem;"><i class="fas fa-play-circle" style="margin-right:6px;"></i>Key Topics Covered</p>
+        <ul class="worksheet-bullets">
+          <li><i class="fas fa-check-circle"></i> Top Networking Tips for Success</li>
+          <li><i class="fas fa-check-circle"></i> Building Authentic Relationships</li>
+          <li><i class="fas fa-check-circle"></i> Leveraging Social Media for Networking</li>
+          <li><i class="fas fa-check-circle"></i> Maintaining and Growing Your Network</li>
+        </ul>
+      </div>
+      <p style="margin-top:1rem;font-size:0.88rem;">By the end of this module, you'll have a toolkit of advanced networking strategies to create meaningful, long-lasting professional relationships.</p>`,
+    takeaways:[
+      'Always lead with value — ask how you can help before asking for anything in return.',
+      'Follow up within 24 hours of connecting with someone new — timing matters.',
+      'LinkedIn is your most powerful networking tool — use it daily, not just when job searching.'
+    ],
+    action:'Connect with 3 people on LinkedIn this week. Send each a personalised connection message — not the default template.',
+    resources:[
+      {label:'Networking Tools', icon:'fa-tools', tag:'Resource', url:'#'}
+    ]
+  },
+
+  /* ── 4. Book a Call with Career Coach — NO VIDEO ── */
+  {
+    id:'w6m4', icon:'fa-calendar-alt', title:'Book a Call with your Career Coach', subtitle:'Networking & mock interview support',
+    hasVideo:false,
+    notes:`
+      <p style="margin-bottom:1.2rem;">Now that you are working on your networking skills and preparing for mock interviews, it's time to book a call with your Career Coach. We are looking forward to providing you with the support you require for a successful job search journey!</p>
+      <div style="display:flex;flex-wrap:wrap;gap:1.2rem;margin-bottom:1.2rem;">
+        <div style="flex:1;min-width:220px;background:#f4faf7;border-radius:14px;padding:1.2rem;">
+          <div style="display:flex;gap:0.8rem;align-items:center;margin-bottom:0.8rem;"><div class="coach-avatar">NV</div><strong>Nitti Vidhu Mohan</strong></div>
+          <p style="font-size:0.84rem;line-height:1.9;">
+            <i class="fas fa-calendar" style="color:var(--brand-teal);width:18px;"></i> <a href="https://calendly.com/nitti-v" target="_blank" style="color:var(--brand-teal);">calendly.com/nitti-v</a><br>
+            <i class="fas fa-envelope" style="color:var(--brand-teal);width:18px;"></i> nitti.v@elevateme.pro<br>
+            <i class="fas fa-phone" style="color:var(--brand-teal);width:18px;"></i> 614-559-3829
+          </p>
+        </div>
+        <div style="flex:1;min-width:220px;background:#f4faf7;border-radius:14px;padding:1.2rem;">
+          <div style="display:flex;gap:0.8rem;align-items:center;margin-bottom:0.8rem;"><div class="coach-avatar">DR</div><strong>Dr. Divina Raghav</strong></div>
+          <p style="font-size:0.84rem;line-height:1.9;">
+            <i class="fas fa-calendar" style="color:var(--brand-teal);width:18px;"></i> <a href="https://tidycal.com/divinar" target="_blank" style="color:var(--brand-teal);">tidycal.com/divinar</a><br>
+            <i class="fas fa-envelope" style="color:var(--brand-teal);width:18px;"></i> divina.r@elevateme.pro<br>
+            <i class="fas fa-phone" style="color:var(--brand-teal);width:18px;"></i> 614-585-5715
+          </p>
+        </div>
+      </div>
+      <div style="background:#f0f7f4;border-radius:14px;padding:1rem 1.4rem;font-size:0.84rem;line-height:1.9;">
+        <strong>Instructions:</strong><br>
+        1. Click the booking link to open the calendar<br>
+        2. Choose a date and time that works for you<br>
+        3. Fill in your name, email, and topics you'd like to discuss<br>
+        4. Confirm — you'll receive a Zoom link via email<br>
+        5. Join on time. Reschedule at least 12 hours in advance.<br>
+        6. For any emergency: nitti.v@elevateme.pro<br><br>
+        <strong>Call Duration:</strong> 30 minutes &nbsp;·&nbsp; <strong>Cadence:</strong> 1 call per week<br><br>
+        <strong>Important:</strong> Please come prepared with your queries or topic of discussion prior to the call so as to ensure that you are able to make the most of your coaching call.
+      </div>`,
+    takeaways:[
+      'Ask your coach to review your networking messages before you send them.',
+      'Use this session for a mock behavioural interview — you\'re now well prepared for it.',
+      'Come with your list of 10 network contacts and discuss which to prioritise.'
+    ],
+    action:'Book your Week 6 coach call. Bring your networking message drafts and your list of target contacts to review together.',
+    resources:[
+      {label:'Book with Nitti – Calendly', icon:'fa-calendar-check', tag:'Book', url:'https://calendly.com/nitti-v'},
+      {label:'Book with Dr. Divina – TidyCal', icon:'fa-calendar-check', tag:'Book', url:'https://tidycal.com/divinar'}
+    ]
+  },
+
+  /* ── 5. Practice Activity — NO VIDEO ── */
+  {
+    id:'w6m5', icon:'fa-paper-plane', title:'Practice Activity — Send 5 Networking Messages', subtitle:'Complete this week',
+    hasVideo:false,
+    notes:`
+      <p style="margin-bottom:1.2rem;">This week's practice activity is to send <strong>5 personalised networking messages</strong> to people in your target professional circles. Quality matters more than quantity — each message should be thoughtful and specific.</p>
+
+      <div style="background:#f0f7f4;border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:1.2rem;">
+        <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--brand-teal);margin-bottom:0.9rem;"><i class="fas fa-users" style="margin-right:6px;"></i>Your 3 Target Groups</p>
+        <div class="message-card">
+          <div class="message-card-icon"><i class="fas fa-user-graduate"></i></div>
+          <div>
+            <h4>Alumni</h4>
+            <p>Reach out to graduates from your university or program who are now working in your target industry. Ask for a 15-minute informational call.</p>
+          </div>
+        </div>
+        <div class="message-card">
+          <div class="message-card-icon"><i class="fas fa-briefcase"></i></div>
+          <div>
+            <h4>Hiring Managers</h4>
+            <p>Connect with hiring managers at companies you are targeting. Express genuine interest in their team and ask a thoughtful question about the role or company.</p>
+          </div>
+        </div>
+        <div class="message-card">
+          <div class="message-card-icon"><i class="fas fa-headset"></i></div>
+          <div>
+            <h4>Recruiters</h4>
+            <p>Connect with recruiters who specialise in your field. Let them know you are actively looking, your target role, and your key skills.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:#eef7f2;border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:1rem;border:1px solid #c8e6d8;">
+        <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--brand-teal);margin-bottom:0.7rem;"><i class="fas fa-lightbulb" style="margin-right:6px;"></i>Tips for a Great Networking Message</p>
+        <ul class="worksheet-bullets">
+          <li><i class="fas fa-check-circle"></i> Personalise every message — mention something specific about their work</li>
+          <li><i class="fas fa-check-circle"></i> Keep it short — 3–4 sentences maximum</li>
+          <li><i class="fas fa-check-circle"></i> Be clear about who you are and what you are asking for</li>
+          <li><i class="fas fa-check-circle"></i> Never ask for a job directly in a first message</li>
+          <li><i class="fas fa-check-circle"></i> Always follow up if you don't hear back within 1 week</li>
+        </ul>
+      </div>
+
+      <div style="background:#fff8f7;border-radius:14px;padding:1rem 1.4rem;border:1px solid #f5c6be;">
+        <p style="font-size:0.84rem;"><i class="fas fa-share-alt" style="color:var(--brand-accent);margin-right:8px;"></i><strong>Share with your coach:</strong> Forward the 5 messages you sent (or plan to send) to your Career Coach for review and feedback before your next session.</p>
+      </div>`,
+    takeaways:[
+      'A personalised message gets a response rate 5× higher than a generic template.',
+      'Never ask for a job in a first networking message — ask for a conversation or advice instead.',
+      'Consistency beats intensity — send 5 messages weekly and your network grows significantly over time.'
+    ],
+    action:'Send 5 personalised networking messages this week — at least 1 to an alumni, 1 to a hiring manager, and 1 to a recruiter. Track responses.',
+    resources:[]
+  }
+
+];
+
+buildWeekPage(6, MODULES);
+</script>
+</body>
+</html>

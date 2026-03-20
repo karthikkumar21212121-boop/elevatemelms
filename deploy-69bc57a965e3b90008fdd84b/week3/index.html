@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElevateMe · Week 3: Elevator Pitch & Mock Interview Preparation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../shared/styles.css">
+    <style>
+        /* Dual video layout */
+        .dual-video-wrap { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.8rem; }
+        .dual-video-wrap .lesson-video-wrap { margin-bottom:0; }
+        .dual-video-label { font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--brand-teal); margin-bottom:0.4rem; }
+        .dual-video-admin-row { display:none; gap:0.5rem; margin-top:0.5rem; align-items:center; }
+        body.is-admin .dual-video-admin-row { display:flex; }
+        /* Practice activity */
+        .practice-checklist { list-style:none; margin:1rem 0; }
+        .practice-checklist li { display:flex; align-items:center; gap:0.8rem; padding:0.8rem 0; border-bottom:1px solid #f0f7f4; font-size:0.9rem; font-weight:500; }
+        .practice-checklist li:last-child { border-bottom:none; }
+        .practice-checklist li i { width:28px; height:28px; background:var(--brand-teal); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.7rem; flex-shrink:0; }
+        @media(max-width:600px){ .dual-video-wrap { grid-template-columns:1fr; } }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="logo-area" href="../"></a>
+    <div class="nav-links">
+        <span class="admin-badge"><i class="fas fa-shield-alt"></i> Admin Mode</span>
+        <a href="../">Dashboard</a>
+        <a href="#" class="active">Week 3</a>
+        <a href="#" class="btn-accent">Student Portal</a>
+    </div>
+</nav>
+
+<div class="week-shell">
+    <aside class="week-sidebar">
+        <div class="sidebar-header">
+            <a href="../" class="sidebar-back"><i class="fas fa-arrow-left"></i> Dashboard</a>
+            <div class="sidebar-phase">Phase 03</div>
+            <div class="sidebar-week-title">Week 3: Elevator Pitch &amp; Mock Interview Preparation</div>
+        </div>
+        <div class="sidebar-progress">
+            <div class="sidebar-progress-label">
+                <span>Progress</span>
+                <strong class="week-pct" data-week="3">0%</strong>
+            </div>
+            <div class="progress-track"><div class="progress-fill week-fill" data-week="3"></div></div>
+        </div>
+        <nav class="sidebar-modules" id="weekSidebar"></nav>
+        <div class="sidebar-nav">
+            <button class="sidebar-nav-btn" id="w3-prev" onclick="navigateModule(3,-1)"><i class="fas fa-chevron-up"></i> Prev</button>
+            <button class="sidebar-nav-btn" id="w3-next" onclick="navigateModule(3,1)">Next <i class="fas fa-chevron-down"></i></button>
+        </div>
+    </aside>
+    <div class="week-content" id="weekContent"></div>
+</div>
+
+<div class="footer-hint">
+    <span><i class="far fa-copyright"></i> ElevateMe</span>
+    <span>Week 3 of 5</span>
+</div>
+<div class="toast" id="toast"><i class="fas fa-check-circle"></i> <span id="toastMsg"></span></div>
+
+<script src="../shared/app.js"></script>
+<script>
+const MODULES = [
+
+  /* ── 1. Crafting your Elevator Pitch ── */
+  {
+    id:'w3m1', icon:'fa-rocket', title:'Crafting your Elevator Pitch', subtitle:'60-second pitch',
+    hasVideo:true,
+    videoUrl:'https://drive.google.com/file/d/1FAb6aL3Dbjj4IanMmuH21yT-hG4mpPJ5/view?usp=drive_link',
+    notes:`
+      <p style="margin-bottom:1rem;">This module is designed to help you create an effective and strong Elevator Pitch. An elevator pitch is a brief, persuasive speech that you can use to spark interest in what you do. Whether at networking events, career fairs, or job interviews, a well-crafted elevator pitch can open doors and make a lasting impression.</p>
+      <div style="background:#f0f7f4;border-radius:14px;padding:1.2rem 1.4rem;">
+        <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--brand-teal);margin-bottom:0.7rem;"><i class="fas fa-play-circle" style="margin-right:6px;"></i>Key Topics Covered</p>
+        <ul class="worksheet-bullets">
+          <li><i class="fas fa-check-circle"></i> What is an Elevator Pitch</li>
+          <li><i class="fas fa-check-circle"></i> Benefits of having an Elevator Pitch</li>
+          <li><i class="fas fa-check-circle"></i> How to form an Elevator Pitch</li>
+          <li><i class="fas fa-check-circle"></i> Elevator Pitch Examples</li>
+          <li><i class="fas fa-check-circle"></i> How to Practice and Refine</li>
+          <li><i class="fas fa-check-circle"></i> Improving Non-Verbal Communication</li>
+        </ul>
+      </div>
+      <p style="margin-top:1rem;font-size:0.88rem;">By the end of this module, you will be equipped to create and deliver a compelling elevator pitch. This skill is essential for making strong impressions in professional settings, whether you are networking or interviewing for a job. Practice regularly and refine your pitch to ensure it is clear, engaging, and reflective of your unique strengths and goals.</p>`,
+    takeaways:[
+      'An elevator pitch should be 30–60 seconds — clear, confident, and outcome-focused.',
+      'Structure it as: Who you are → What you do → The value you bring → Your ask.',
+      'Non-verbal communication — eye contact, posture, pace — matters as much as the words.'
+    ],
+    action:'Write your elevator pitch using the structure from the video. Record yourself delivering it and refine until it feels natural and confident.',
+    resources:[]
+  },
+
+  /* ── 2. Pre-Interview Checklist — TWO VIDEOS ── */
+  {
+    id:'w3m2', icon:'fa-clipboard-list', title:'Pre-Interview Checklist', subtitle:'2 videos · Interview readiness',
+    hasVideo:false, isDualVideo:true,
+    videoUrl1:'https://drive.google.com/file/d/18C3pvRSPR_HoMe6V3Iny3F4OXML44lVK/view?usp=sharing',
+    videoUrl2:'https://drive.google.com/file/d/1bCMLseVCEpMZQj_LBsuZsWihUKDIj7ww/view?usp=sharing',
+    notes:`
+      <p style="margin-bottom:1rem;">This module is designed to help you get ready for interviews by providing checklists and addressing common misconceptions. By following these steps, you can ensure you're thoroughly prepared and confident, making a strong impression on your interviewers.</p>
+      <div style="background:#f0f7f4;border-radius:14px;padding:1.2rem 1.4rem;">
+        <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--brand-teal);margin-bottom:0.7rem;"><i class="fas fa-list-check" style="margin-right:6px;"></i>Step-by-Step Guide to Preparing for Your Interviews</p>
+        <ul class="worksheet-bullets">
+          <li><i class="fas fa-check-circle"></i> Research the Company</li>
+          <li><i class="fas fa-check-circle"></i> Read the Job Description Carefully</li>
+          <li><i class="fas fa-check-circle"></i> Try the Company's Product or Service (if applicable)</li>
+          <li><i class="fas fa-check-circle"></i> Learn About the Interviewers</li>
+          <li><i class="fas fa-check-circle"></i> Know Why You're Interested in This Position</li>
+          <li><i class="fas fa-check-circle"></i> Prepare Questions to Ask</li>
+          <li><i class="fas fa-check-circle"></i> Figure Out What to Wear</li>
+          <li><i class="fas fa-check-circle"></i> Prepare a Reference List</li>
+          <li><i class="fas fa-check-circle"></i> Test Any Needed Tech</li>
+          <li><i class="fas fa-check-circle"></i> Prepare Your Environment</li>
+          <li><i class="fas fa-check-circle"></i> Fill in an Interview Cheat Sheet</li>
+          <li><i class="fas fa-check-circle"></i> Day of the Interview</li>
+        </ul>
+      </div>`,
+    takeaways:[
+      'Preparation is the single biggest differentiator between candidates at the same skill level.',
+      'Research your interviewers on LinkedIn before the call — it builds rapport and shows initiative.',
+      'Test your tech, background, and lighting the night before — not 5 minutes before the call.'
+    ],
+    action:'For your next target role, work through all 12 steps on the checklist 48 hours before the interview. Fill in the Interview Cheat Sheet.',
+    resources:[
+      {label:'How to Prepare for your Phone Screen', icon:'fa-external-link-alt', tag:'Guide', url:'#'},
+      {label:'Research about the Company', icon:'fa-external-link-alt', tag:'Guide', url:'#'},
+      {label:'Crunchbase — Company Research', icon:'fa-building', tag:'Tool', url:'https://www.crunchbase.com'},
+      {label:'Glassdoor — Company Research', icon:'fa-building', tag:'Tool', url:'https://www.glassdoor.com'},
+      {label:'LinkedIn Company Search', icon:'fa-linkedin', tag:'Tool', url:'https://www.linkedin.com/company'},
+      {label:'Smart Questions to Ask at an Interview', icon:'fa-question-circle', tag:'Resource', url:'#'},
+      {label:'Interview Cheat Sheet', icon:'fa-file-alt', tag:'Template', url:'#'},
+      {label:'Job Tracking Tool', icon:'fa-table', tag:'Tool', url:'#'}
+    ]
+  },
+
+  /* ── 3. Book a Call with Career Coach — NO VIDEO ── */
+  {
+    id:'w3m3', icon:'fa-calendar-alt', title:'Book a Call with your Career Coach', subtitle:'Elevator pitch & mock interview prep',
+    hasVideo:false,
+    notes:`
+      <p style="margin-bottom:1.2rem;">Now that you are working on your elevator pitch and preparing for mock interviews, it's time to book a call with your Career Coach. We are looking forward to providing you with the support you require for a successful job search journey!</p>
+      <div style="display:flex;flex-wrap:wrap;gap:1.2rem;margin-bottom:1.2rem;">
+        <div style="flex:1;min-width:220px;background:#f4faf7;border-radius:14px;padding:1.2rem;">
+          <div style="display:flex;gap:0.8rem;align-items:center;margin-bottom:0.8rem;"><div class="coach-avatar">NV</div><strong>Nitti Vidhu Mohan</strong></div>
+          <p style="font-size:0.84rem;line-height:1.9;">
+            <i class="fas fa-calendar" style="color:var(--brand-teal);width:18px;"></i> <a href="https://calendly.com/nitti-v" target="_blank" style="color:var(--brand-teal);">calendly.com/nitti-v</a><br>
+            <i class="fas fa-envelope" style="color:var(--brand-teal);width:18px;"></i> nitti.v@elevateme.pro<br>
+            <i class="fas fa-phone" style="color:var(--brand-teal);width:18px;"></i> 614-559-3829
+          </p>
+        </div>
+        <div style="flex:1;min-width:220px;background:#f4faf7;border-radius:14px;padding:1.2rem;">
+          <div style="display:flex;gap:0.8rem;align-items:center;margin-bottom:0.8rem;"><div class="coach-avatar">DR</div><strong>Dr. Divina Raghav</strong></div>
+          <p style="font-size:0.84rem;line-height:1.9;">
+            <i class="fas fa-calendar" style="color:var(--brand-teal);width:18px;"></i> <a href="https://tidycal.com/divinar" target="_blank" style="color:var(--brand-teal);">tidycal.com/divinar</a><br>
+            <i class="fas fa-envelope" style="color:var(--brand-teal);width:18px;"></i> divina.r@elevateme.pro<br>
+            <i class="fas fa-phone" style="color:var(--brand-teal);width:18px;"></i> 614-585-5715
+          </p>
+        </div>
+      </div>
+      <div style="background:#f0f7f4;border-radius:14px;padding:1rem 1.4rem;font-size:0.84rem;line-height:1.9;">
+        <strong>Instructions:</strong><br>
+        1. Click the booking link to open the calendar<br>
+        2. Choose a date and time that works for you<br>
+        3. Fill in your name, email, and topics you'd like to discuss<br>
+        4. Confirm — you'll receive a Zoom link via email<br>
+        5. Join on time. Reschedule at least 12 hours in advance.<br>
+        6. For any emergency: nitti.v@elevateme.pro<br><br>
+        <strong>Call Duration:</strong> 30 minutes &nbsp;·&nbsp; <strong>Cadence:</strong> 1 call per week<br><br>
+        <strong>Important:</strong> Please come prepared with your queries or topic of discussion prior to the call so as to ensure that you are able to make the most of your coaching call.
+      </div>`,
+    takeaways:[
+      'Deliver your elevator pitch to your coach and get direct feedback before using it in real interviews.',
+      'Use this session to do a mock interview run-through — treat it like the real thing.',
+      'Come prepared with your queries and topics — 30 minutes goes fast.'
+    ],
+    action:'Book your Week 3 coach call now. Prepare to deliver your elevator pitch and ask for feedback on your pre-interview checklist.',
+    resources:[
+      {label:'Book with Nitti – Calendly', icon:'fa-calendar-check', tag:'Book', url:'https://calendly.com/nitti-v'},
+      {label:'Book with Dr. Divina – TidyCal', icon:'fa-calendar-check', tag:'Book', url:'https://tidycal.com/divinar'}
+    ]
+  },
+
+  /* ── 4. Practice Activity — NO VIDEO ── */
+  {
+    id:'w3m4', icon:'fa-video', title:'Practice Activity', subtitle:'Record your 1-minute introduction',
+    hasVideo:false,
+    notes:`
+      <p style="margin-bottom:1.2rem;">This week's practice activity is to record a <strong>1-minute introduction video</strong> of yourself. This is an excellent way to practise your elevator pitch and get comfortable presenting yourself on camera — a skill increasingly required in modern hiring processes.</p>
+      <div style="background:#f0f7f4;border-radius:14px;padding:1.2rem 1.4rem;">
+        <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--brand-teal);margin-bottom:0.9rem;"><i class="fas fa-video" style="margin-right:6px;"></i>Your Video Should Cover</p>
+        <ul class="practice-checklist">
+          <li><i class="fas fa-user"></i> Who you are — your name, background, and education</li>
+          <li><i class="fas fa-tools"></i> Your skills — technical and soft skills relevant to your target role</li>
+          <li><i class="fas fa-project-diagram"></i> Your projects — highlight 1–2 key projects from your program</li>
+          <li><i class="fas fa-bullseye"></i> Your career goals — what role you are targeting and why</li>
+        </ul>
+      </div>
+      <div style="background:#eef7f2;border-radius:14px;padding:1rem 1.4rem;margin-top:1rem;border:1px solid #c8e6d8;">
+        <p style="font-size:0.84rem;"><i class="fas fa-lightbulb" style="color:var(--brand-teal);margin-right:8px;"></i><strong>Tips for a great recording:</strong> Good lighting (face the window), clean background, speak slowly and clearly, maintain eye contact with the camera, keep it to exactly 1 minute.</p>
+      </div>
+      <div style="background:#fff8f7;border-radius:14px;padding:1rem 1.4rem;margin-top:1rem;border:1px solid #f5c6be;">
+        <p style="font-size:0.84rem;"><i class="fas fa-share-alt" style="color:var(--brand-accent);margin-right:8px;"></i><strong>Share with your coach:</strong> Send your recorded video to your Career Coach before your next session for feedback.</p>
+      </div>`,
+    takeaways:[
+      'Watching yourself on video is uncomfortable at first — that discomfort is exactly what makes it valuable.',
+      'Keep your introduction to exactly 1 minute — brevity and clarity are the goal.',
+      'Your projects are as compelling as work experience — frame them with impact and outcomes.'
+    ],
+    action:'Record your 1-minute introduction video this week. Watch it back, refine it, then share it with your career coach for feedback before Week 4.',
+    resources:[]
+  }
+
+];
+
+buildWeekPage(3, MODULES);
+
+/* ── Dual video injection for Pre-Interview Checklist (w3m2) ── */
+(function(){
+    const mod = MODULES.find(m => m.isDualVideo);
+    if (!mod) return;
+    const panel = document.getElementById('panel-' + mod.id);
+    if (!panel) return;
+    const notesCard = panel.querySelector('.lesson-notes-card');
+    if (!notesCard) return;
+
+    const dualWrap = document.createElement('div');
+    dualWrap.innerHTML = `
+        <div class="dual-video-wrap">
+            <div>
+                <div class="dual-video-label"><i class="fas fa-play-circle"></i> Video 1 — Pre-Interview Checklist</div>
+                <div class="lesson-video-wrap" id="vwrap-${mod.id}-1">
+                    <div class="lesson-video-placeholder"><i class="fas fa-play-circle"></i><span>Video 1</span></div>
+                </div>
+                <div class="dual-video-admin-row">
+                    <input class="video-url-input" id="vid-input-${mod.id}-1" value="${mod.videoUrl1}" style="flex:1;font-size:0.78rem;"/>
+                    <button class="btn-save-url" onclick="saveDualVideo('${mod.id}',1)" style="font-size:0.75rem;padding:0.35rem 0.7rem;"><i class="fas fa-save"></i></button>
+                    <button class="btn-clear-url" onclick="clearDualVideo('${mod.id}',1)"><i class="fas fa-times"></i></button>
+                </div>
+            </div>
+            <div>
+                <div class="dual-video-label"><i class="fas fa-play-circle"></i> Video 2 — Common Misconceptions</div>
+                <div class="lesson-video-wrap" id="vwrap-${mod.id}-2">
+                    <div class="lesson-video-placeholder"><i class="fas fa-play-circle"></i><span>Video 2</span></div>
+                </div>
+                <div class="dual-video-admin-row">
+                    <input class="video-url-input" id="vid-input-${mod.id}-2" value="${mod.videoUrl2}" style="flex:1;font-size:0.78rem;"/>
+                    <button class="btn-save-url" onclick="saveDualVideo('${mod.id}',2)" style="font-size:0.75rem;padding:0.35rem 0.7rem;"><i class="fas fa-save"></i></button>
+                    <button class="btn-clear-url" onclick="clearDualVideo('${mod.id}',2)"><i class="fas fa-times"></i></button>
+                </div>
+            </div>
+        </div>`;
+    notesCard.parentNode.insertBefore(dualWrap, notesCard);
+
+    function embedGDrive(wrapId, url){
+        const m = url.match(/\/file\/d\/([^/]+)/);
+        if (!m) return;
+        const w = document.getElementById(wrapId);
+        if (w) w.innerHTML = `<iframe src="https://drive.google.com/file/d/${m[1]}/preview" allowfullscreen allow="autoplay"></iframe>`;
+    }
+    embedGDrive('vwrap-' + mod.id + '-1', mod.videoUrl1);
+    embedGDrive('vwrap-' + mod.id + '-2', mod.videoUrl2);
+})();
+
+window.saveDualVideo = function(moduleId, num){
+    const inp = document.getElementById('vid-input-' + moduleId + '-' + num);
+    if (!inp || !inp.value.trim()){ showToast('Please paste a URL first'); return; }
+    const url = inp.value.trim();
+    const m = url.match(/\/file\/d\/([^/]+)/);
+    const embed = m ? 'https://drive.google.com/file/d/' + m[1] + '/preview' : url;
+    const wrap = document.getElementById('vwrap-' + moduleId + '-' + num);
+    if (wrap) wrap.innerHTML = '<iframe src="' + embed + '" allowfullscreen allow="autoplay"></iframe>';
+    showToast('Video ' + num + ' saved!');
+};
+
+window.clearDualVideo = function(moduleId, num){
+    const wrap = document.getElementById('vwrap-' + moduleId + '-' + num);
+    if (wrap) wrap.innerHTML = '<div class="lesson-video-placeholder"><i class="fas fa-play-circle"></i><span>Video ' + num + '</span></div>';
+    const inp = document.getElementById('vid-input-' + moduleId + '-' + num);
+    if (inp) inp.value = '';
+    showToast('Video ' + num + ' removed');
+};
+</script>
+</body>
+</html>

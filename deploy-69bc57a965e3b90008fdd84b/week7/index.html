@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElevateMe · Week 7: Informational Interviews</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../shared/styles.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="logo-area" href="../"></a>
+    <div class="nav-links">
+        <span class="admin-badge"><i class="fas fa-shield-alt"></i> Admin Mode</span>
+        <a href="../">Dashboard</a>
+        <a href="#" class="active">Week 7</a>
+        <a href="#" class="btn-accent">Student Portal</a>
+    </div>
+</nav>
+
+<div class="week-shell">
+    <aside class="week-sidebar">
+        <div class="sidebar-header">
+            <a href="../" class="sidebar-back"><i class="fas fa-arrow-left"></i> Dashboard</a>
+            <div class="sidebar-phase">Phase 07</div>
+            <div class="sidebar-week-title">Week 7: Informational Interviews</div>
+        </div>
+        <div class="sidebar-progress">
+            <div class="sidebar-progress-label">
+                <span>Progress</span>
+                <strong class="week-pct" data-week="7">0%</strong>
+            </div>
+            <div class="progress-track"><div class="progress-fill week-fill" data-week="7"></div></div>
+        </div>
+        <nav class="sidebar-modules" id="weekSidebar"></nav>
+        <div class="sidebar-nav">
+            <button class="sidebar-nav-btn" id="w7-prev" onclick="navigateModule(7,-1)"><i class="fas fa-chevron-up"></i> Prev</button>
+            <button class="sidebar-nav-btn" id="w7-next" onclick="navigateModule(7,1)">Next <i class="fas fa-chevron-down"></i></button>
+        </div>
+    </aside>
+    <div class="week-content" id="weekContent"></div>
+</div>
+
+<div class="footer-hint">
+    <span><i class="far fa-copyright"></i> ElevateMe</span>
+    <span>Week 7</span>
+</div>
+<div class="toast" id="toast"><i class="fas fa-check-circle"></i> <span id="toastMsg"></span></div>
+
+<script src="../shared/app.js"></script>
+<script>
+const MODULES = [
+
+  /* ── 1. Follow Up After Job Applications ── */
+  {
+    id:'w7m1', icon:'fa-reply', title:'Follow Up After Job Applications', subtitle:'Stay on the recruiter\'s radar',
+    hasVideo:true,
+    videoUrl:'https://drive.google.com/file/d/1sMnGvv-C8elKqcfsWl9hKZ5UDvvRIHnH/view?usp=drive_link',
+    notes:`
+      <p style="margin-bottom:1rem;">In this week's module, we would be focusing on the crucial step of following up after submitting a job application. Following up can demonstrate your continued interest in a role and keep your application on the recruiter's radar. You'll learn how to find the right contact, draft personalized follow-up messages, and stay organized throughout the process.</p>
+      <div style="background:#f0f7f4;border-radius:14px;padding:1.2rem 1.4rem;">
+        <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--brand-teal);margin-bottom:0.7rem;"><i class="fas fa-play-circle" style="margin-right:6px;"></i>Key Topics Covered</p>
+        <ul class="worksheet-bullets">
+          <li><i class="fas fa-check-circle"></i> Finding the Right Contact Person</li>
+          <li><i class="fas fa-check-circle"></i> Sending a Connection Request</li>
+          <li><i class="fas fa-check-circle"></i> Crafting an Effective Follow-Up Message</li>
+          <li><i class="fas fa-check-circle"></i> Tips for Managing and Tracking Applications</li>
+        </ul>
+      </div>
+      <p style="margin-top:1rem;font-size:0.88rem;">By the end of this module, you'll understand the importance of timely follow-ups and learn best practices for crafting professional messages that increase your chances of securing an interview.</p>`,
+    takeaways:[
+      'Following up 5–7 days after applying shows initiative and keeps your name visible.',
+      'Always find and connect with the hiring manager on LinkedIn before following up.',
+      'Track every application in a spreadsheet — you cannot follow up on what you cannot remember.'
+    ],
+    action:'For every application you have submitted this week, find the hiring manager on LinkedIn and send a personalised connection request.',
+    resources:[]
+  },
+
+  /* ── 2. Email Follow Up After Application ── */
+  {
+    id:'w7m2', icon:'fa-envelope-open-text', title:'Email Follow Up After Application', subtitle:'Professional email strategies',
+    hasVideo:true,
+    videoUrl:'https://drive.google.com/file/d/1xpos5Ne62VZAQ1uHcpDJHzSDjSM1AG61/view?usp=drive_link',
+    notes:`
+      <p style="margin-bottom:1rem;">This module builds upon the basics of following up on job applications, providing in-depth strategies for crafting effective and professional follow-up emails. Learn how to communicate with hiring managers, avoid common pitfalls, and ensure your application remains a priority.</p>
+      <div style="background:#f0f7f4;border-radius:14px;padding:1.2rem 1.4rem;">
+        <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--brand-teal);margin-bottom:0.7rem;"><i class="fas fa-play-circle" style="margin-right:6px;"></i>Key Topics Covered</p>
+        <ul class="worksheet-bullets">
+          <li><i class="fas fa-check-circle"></i> Crafting Professional and Polite Follow-Up Emails</li>
+          <li><i class="fas fa-check-circle"></i> Using Templates for Efficient Communication</li>
+          <li><i class="fas fa-check-circle"></i> Best Practices for Timing and Etiquette</li>
+        </ul>
+      </div>
+      <p style="margin-top:1rem;font-size:0.88rem;">By the end of this module, you'll have mastered the art of follow-up communication, enhancing your chances of progressing in the hiring process.</p>`,
+    takeaways:[
+      'The subject line of your follow-up email determines whether it gets opened — keep it clear and specific.',
+      'Send follow-up emails between Tuesday and Thursday morning for the highest open rates.',
+      'One follow-up is professional. Two is persistent. Three is too many — know when to stop.'
+    ],
+    action:'Draft a follow-up email for one application you have submitted. Share it with your coach for feedback before sending.',
+    resources:[]
+  },
+
+  /* ── 3. Informational Interviews ── */
+  {
+    id:'w7m3', icon:'fa-comments', title:'Informational Interviews', subtitle:'Uncover hidden opportunities',
+    hasVideo:true,
+    videoUrl:'https://drive.google.com/file/d/11kN_3kXNWHxPM5nlZ86GFs3sijxypze1/view?usp=drive_link',
+    notes:`
+      <p style="margin-bottom:1rem;">This module provides a comprehensive guide to conducting successful informational interviews. These interviews are a powerful tool for networking, gaining industry insights, and uncovering hidden job opportunities. You'll learn how to identify potential interviewees, craft effective outreach messages, and conduct professional and productive conversations.</p>
+      <div style="background:#f0f7f4;border-radius:14px;padding:1.2rem 1.4rem;">
+        <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--brand-teal);margin-bottom:0.7rem;"><i class="fas fa-play-circle" style="margin-right:6px;"></i>Key Topics Covered</p>
+        <ul class="worksheet-bullets">
+          <li><i class="fas fa-check-circle"></i> Purpose and Benefits of Informational Interviews</li>
+          <li><i class="fas fa-check-circle"></i> Setting Up and Preparing for the Interview</li>
+          <li><i class="fas fa-check-circle"></i> Conducting the Interview and Asking the Right Questions</li>
+          <li><i class="fas fa-check-circle"></i> Following Up and Building Lasting Connections</li>
+        </ul>
+      </div>
+      <p style="margin-top:1rem;font-size:0.88rem;">By the end of this module, you will be equipped with the skills to confidently conduct informational interviews and leverage them to enhance your career prospects.</p>`,
+    takeaways:[
+      'An informational interview is a conversation, not a job interview — it removes pressure and builds genuine relationships.',
+      'Most people are willing to give 20 minutes to help someone — the ask is smaller than you think.',
+      'Always send a thank-you email within 24 hours and stay in touch — the long-term relationship is the reward.'
+    ],
+    action:'Identify 2 people you would like to conduct an informational interview with. Draft your outreach message for each and share with your coach.',
+    resources:[
+      {label:'Informational Interviews: What it is & Pro Tips', icon:'fa-external-link-alt', tag:'Article', url:'#'},
+      {label:'Get the Most Out of an Informational Interview', icon:'fa-external-link-alt', tag:'Guide', url:'#'}
+    ]
+  },
+
+  /* ── 4. Body Language for Confidence ── */
+  {
+    id:'w7m4', icon:'fa-person', title:'Body Language for Confidence', subtitle:'Present with impact',
+    hasVideo:true,
+    videoUrl:'https://drive.google.com/file/d/1uArNsMbv1k1c_uV6zvGsrgdYsk3rrG3t/view?usp=drive_link',
+    notes:`
+      <p style="margin-bottom:1rem;">This module provides an understanding of how you can improve your overall body language for interviews. This is important because interviewers will draw assumptions about your confidence and several other important skills based on your presentation skills and body language.</p>
+      <div style="background:#f0f7f4;border-radius:14px;padding:1.2rem 1.4rem;">
+        <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--brand-teal);margin-bottom:0.7rem;"><i class="fas fa-lightbulb" style="margin-right:6px;"></i>Why This Matters</p>
+        <ul class="worksheet-bullets">
+          <li><i class="fas fa-check-circle"></i> 55% of communication is non-verbal — interviewers are constantly reading your body language</li>
+          <li><i class="fas fa-check-circle"></i> Confident body language signals leadership, reliability, and emotional intelligence</li>
+          <li><i class="fas fa-check-circle"></i> Poor posture, avoiding eye contact, or fidgeting can undermine even the best verbal answers</li>
+          <li><i class="fas fa-check-circle"></i> Body language can be trained — it improves with deliberate practice</li>
+        </ul>
+      </div>`,
+    takeaways:[
+      'Sit up straight, maintain eye contact, and keep your hands visible — these three things signal confidence immediately.',
+      'Smile genuinely when you greet your interviewer — warmth builds rapport instantly.',
+      'Record yourself in a mock interview and watch it back with the sound off — focus only on what your body is doing.'
+    ],
+    action:'Record yourself answering one interview question. Watch it back with the sound off and note 3 things your body language communicates.',
+    resources:[]
+  },
+
+  /* ── 5. Book a Call with Career Coach — NO VIDEO ── */
+  {
+    id:'w7m5', icon:'fa-calendar-alt', title:'Book a Call with your Career Coach', subtitle:'Informational interview & mock session',
+    hasVideo:false,
+    notes:`
+      <p style="margin-bottom:1.2rem;">Now that you are working on your follow-up skills and informational interview preparation, it's time to book a call with your Career Coach. We are looking forward to providing you with the support you require for a successful job search journey!</p>
+      <div style="display:flex;flex-wrap:wrap;gap:1.2rem;margin-bottom:1.2rem;">
+        <div style="flex:1;min-width:220px;background:#f4faf7;border-radius:14px;padding:1.2rem;">
+          <div style="display:flex;gap:0.8rem;align-items:center;margin-bottom:0.8rem;"><div class="coach-avatar">NV</div><strong>Nitti Vidhu Mohan</strong></div>
+          <p style="font-size:0.84rem;line-height:1.9;">
+            <i class="fas fa-calendar" style="color:var(--brand-teal);width:18px;"></i> <a href="https://calendly.com/nitti-v" target="_blank" style="color:var(--brand-teal);">calendly.com/nitti-v</a><br>
+            <i class="fas fa-envelope" style="color:var(--brand-teal);width:18px;"></i> nitti.v@elevateme.pro<br>
+            <i class="fas fa-phone" style="color:var(--brand-teal);width:18px;"></i> 614-559-3829
+          </p>
+        </div>
+        <div style="flex:1;min-width:220px;background:#f4faf7;border-radius:14px;padding:1.2rem;">
+          <div style="display:flex;gap:0.8rem;align-items:center;margin-bottom:0.8rem;"><div class="coach-avatar">DR</div><strong>Dr. Divina Raghav</strong></div>
+          <p style="font-size:0.84rem;line-height:1.9;">
+            <i class="fas fa-calendar" style="color:var(--brand-teal);width:18px;"></i> <a href="https://tidycal.com/divinar" target="_blank" style="color:var(--brand-teal);">tidycal.com/divinar</a><br>
+            <i class="fas fa-envelope" style="color:var(--brand-teal);width:18px;"></i> divina.r@elevateme.pro<br>
+            <i class="fas fa-phone" style="color:var(--brand-teal);width:18px;"></i> 614-585-5715
+          </p>
+        </div>
+      </div>
+      <div style="background:#f0f7f4;border-radius:14px;padding:1rem 1.4rem;font-size:0.84rem;line-height:1.9;">
+        <strong>Instructions:</strong><br>
+        1. Click the booking link to open the calendar<br>
+        2. Choose a date and time that works for you<br>
+        3. Fill in your name, email, and topics you'd like to discuss<br>
+        4. Confirm — you'll receive a Zoom link via email<br>
+        5. Join on time. Reschedule at least 12 hours in advance.<br>
+        6. For any emergency: nitti.v@elevateme.pro<br><br>
+        <strong>Call Duration:</strong> 30 minutes &nbsp;·&nbsp; <strong>Cadence:</strong> 1 call per week<br><br>
+        <strong>Important:</strong> Please come prepared with your queries or topic of discussion prior to the call so as to ensure that you are able to make the most of your coaching call.
+      </div>`,
+    takeaways:[
+      'Ask your coach to review your follow-up email drafts before you send them.',
+      'Practice your informational interview questions with your coach — they can role-play the other side.',
+      'Come prepared with your topics — 30 minutes goes fast.'
+    ],
+    action:'Book your Week 7 coach call. Bring your follow-up email drafts and your informational interview outreach messages to review.',
+    resources:[
+      {label:'Book with Nitti – Calendly', icon:'fa-calendar-check', tag:'Book', url:'https://calendly.com/nitti-v'},
+      {label:'Book with Dr. Divina – TidyCal', icon:'fa-calendar-check', tag:'Book', url:'https://tidycal.com/divinar'}
+    ]
+  },
+
+  /* ── 6. Practice Activity — NO VIDEO ── */
+  {
+    id:'w7m6', icon:'fa-user-friends', title:'Practice Activity — Conduct 1 Informational Interview', subtitle:'Complete this week',
+    hasVideo:false,
+    notes:`
+      <p style="margin-bottom:1.2rem;">This week's practice activity is to conduct <strong>1 informational interview</strong> with someone working in your target industry or at a company you are interested in.</p>
+
+      <div style="background:#f0f7f4;border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:1.2rem;">
+        <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--brand-teal);margin-bottom:0.9rem;"><i class="fas fa-list-check" style="margin-right:6px;"></i>How to Approach It</p>
+        <ul class="worksheet-bullets">
+          <li><i class="fas fa-check-circle"></i> <strong>Find your person:</strong> Alumni, LinkedIn connections, or someone referred by your network</li>
+          <li><i class="fas fa-check-circle"></i> <strong>Send your outreach:</strong> Short, personalised message — ask for a 15–20 minute call</li>
+          <li><i class="fas fa-check-circle"></i> <strong>Prepare 5–7 questions</strong> about their career path, the industry, and any advice they have</li>
+          <li><i class="fas fa-check-circle"></i> <strong>Conduct the interview:</strong> Listen more than you talk. Take notes.</li>
+          <li><i class="fas fa-check-circle"></i> <strong>Follow up:</strong> Send a thank-you email within 24 hours</li>
+        </ul>
+      </div>
+
+      <div style="background:#eef7f2;border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:1rem;border:1px solid #c8e6d8;">
+        <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--brand-teal);margin-bottom:0.7rem;"><i class="fas fa-question-circle" style="margin-right:6px;"></i>Sample Questions to Ask</p>
+        <ul class="worksheet-bullets">
+          <li><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> "How did you get into this role / industry?"</li>
+          <li><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> "What does a typical day look like for you?"</li>
+          <li><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> "What skills are most valued in this field?"</li>
+          <li><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> "What do you wish you had known before starting?"</li>
+          <li><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> "Is there anyone else you'd suggest I speak to?"</li>
+        </ul>
+      </div>
+
+      <div style="background:#fff8f7;border-radius:14px;padding:1rem 1.4rem;border:1px solid #f5c6be;">
+        <p style="font-size:0.84rem;"><i class="fas fa-share-alt" style="color:var(--brand-accent);margin-right:8px;"></i><strong>Share with your coach:</strong> After the interview, write a short summary of what you learned and share it in your next coaching session.</p>
+      </div>`,
+    takeaways:[
+      'An informational interview is one of the most powerful job search tools — most people never use it.',
+      'The last question — "Is there anyone else I should speak to?" — is the one that compounds your network.',
+      'Every informational interview makes the next one easier — the first one is always the hardest.'
+    ],
+    action:'Conduct 1 informational interview this week. Send your thank-you email within 24 hours. Write a summary of your key learnings to share with your coach.',
+    resources:[]
+  }
+
+];
+
+buildWeekPage(7, MODULES);
+</script>
+</body>
+</html>

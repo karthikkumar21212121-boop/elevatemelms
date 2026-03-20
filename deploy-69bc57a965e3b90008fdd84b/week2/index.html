@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElevateMe · Week 2: Resume Building & Recruitment Process</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../shared/styles.css">
+    <style>
+        .dual-video-wrap { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.8rem; }
+        .dual-video-wrap .lesson-video-wrap { margin-bottom:0; }
+        .dual-video-label { font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--brand-teal); margin-bottom:0.4rem; }
+        .dual-video-admin-row { display:none; gap:0.5rem; margin-top:0.5rem; align-items:center; }
+        body.is-admin .dual-video-admin-row { display:flex; }
+        .practice-checklist { list-style:none; margin:1rem 0; }
+        .practice-checklist li { display:flex; align-items:center; gap:0.8rem; padding:0.8rem 0; border-bottom:1px solid #f0f7f4; font-size:0.9rem; font-weight:500; }
+        .practice-checklist li:last-child { border-bottom:none; }
+        .practice-checklist li i { width:28px; height:28px; background:var(--brand-teal); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.7rem; flex-shrink:0; }
+        @media(max-width:600px){ .dual-video-wrap { grid-template-columns:1fr; } }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="logo-area" href="../"></a>
+    <div class="nav-links">
+        <span class="admin-badge"><i class="fas fa-shield-alt"></i> Admin Mode</span>
+        <a href="../">Dashboard</a>
+        <a href="#" class="active">Week 2</a>
+        <a href="#" class="btn-accent">Student Portal</a>
+    </div>
+</nav>
+
+<div class="week-shell">
+    <aside class="week-sidebar">
+        <div class="sidebar-header">
+            <a href="../" class="sidebar-back"><i class="fas fa-arrow-left"></i> Dashboard</a>
+            <div class="sidebar-phase">Phase 02</div>
+            <div class="sidebar-week-title">Week 2: Resume Building &amp; Recruitment Process</div>
+        </div>
+        <div class="sidebar-progress">
+            <div class="sidebar-progress-label">
+                <span>Progress</span>
+                <strong class="week-pct" data-week="2">0%</strong>
+            </div>
+            <div class="progress-track"><div class="progress-fill week-fill" data-week="2"></div></div>
+        </div>
+        <nav class="sidebar-modules" id="weekSidebar"></nav>
+        <div class="sidebar-nav">
+            <button class="sidebar-nav-btn" id="w2-prev" onclick="navigateModule(2,-1)"><i class="fas fa-chevron-up"></i> Prev</button>
+            <button class="sidebar-nav-btn" id="w2-next" onclick="navigateModule(2,1)">Next <i class="fas fa-chevron-down"></i></button>
+        </div>
+    </aside>
+    <div class="week-content" id="weekContent"></div>
+</div>
+
+<div class="footer-hint">
+    <span><i class="far fa-copyright"></i> ElevateMe</span>
+    <span>Week 2 of 5</span>
+</div>
+<div class="toast" id="toast"><i class="fas fa-check-circle"></i> <span id="toastMsg"></span></div>
+
+<script src="../shared/app.js"></script>
+<script>
+const MODULES = [
+  {
+    id:'w2m1', icon:'fa-robot', title:'Introduction to ATS', subtitle:'How ATS works',
+    hasVideo:true, videoUrl:'https://drive.google.com/file/d/1U_zZMM_YfvxwkeRT9D4nzrIPYNvnWt_d/view?usp=drive_link',
+    notes:`<p style="margin-bottom:1rem;">In this module, you will learn about the Applicant Tracking System (ATS), its importance in the hiring process, and practical tips for creating an ATS-friendly resume. This knowledge will help you tailor your resume to pass through the initial screening and increase your chances of securing an interview.</p>
+           <div style="background:#f0f7f4;border-radius:14px;padding:1.2rem 1.4rem;">
+             <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--brand-teal);margin-bottom:0.7rem;"><i class="fas fa-play-circle" style="margin-right:6px;"></i>Key Topics Covered</p>
+             <ul class="worksheet-bullets">
+               <li><i class="fas fa-check-circle"></i> What is an Applicant Tracking System (ATS)</li>
+               <li><i class="fas fa-check-circle"></i> Companies that use ATS and Why</li>
+               <li><i class="fas fa-check-circle"></i> How Applicant Tracking Systems Work</li>
+               <li><i class="fas fa-check-circle"></i> Tips for Creating an ATS-Friendly Resume</li>
+               <li><i class="fas fa-check-circle"></i> How to Further Strengthen Your ATS Compliant Resume</li>
+             </ul>
+           </div>
+           <p style="margin-top:1rem;font-size:0.88rem;">By the end of this module, you should be well-equipped to create an ATS-friendly resume that effectively showcases your skills and experiences, improving your chances of landing job interviews.</p>`,
+    takeaways:['ATS screens out resumes before a human ever sees them — formatting matters as much as content.','Mirror the exact keywords from the job description in your resume.','Avoid tables, images, and fancy formatting — ATS systems cannot read them.'],
+    action:'Run your current resume through the Jobscan ATS checker and note your match score for one target job description.',
+    resources:[
+      {label:'ATS: Everything You Need to Know', icon:'fa-external-link-alt', tag:'Article', url:'https://www.jobscan.co/applicant-tracking-systems'},
+      {label:'Get Tailored ATS Tips with Jobscan', icon:'fa-external-link-alt', tag:'Tool', url:'https://www.jobscan.co/video-ats-tip/'}
+    ]
+  },
+  {
+    id:'w2m2', icon:'fa-file-pdf', title:'Building a Resume', subtitle:'Mandatory',
+    hasVideo:true, videoUrl:'https://drive.google.com/file/d/1VVP4-h8blCfvetGYyRL78rpFL2xBgzTu/view?usp=drive_link',
+    notes:`<p style="margin-bottom:1rem;">This module is crucial for students aiming to create a strong resume that stands out to potential employers. An effective resume is your first step towards securing job interviews and advancing in your career.</p>
+           <p style="margin-bottom:1rem;">You will learn the importance of an effective resume, how companies view your resume, and top tips for crafting a compelling resume.</p>
+           <div style="background:#f0f7f4;border-radius:14px;padding:1.2rem 1.4rem;">
+             <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--brand-teal);margin-bottom:0.7rem;"><i class="fas fa-play-circle" style="margin-right:6px;"></i>Key Topics Covered</p>
+             <ul class="worksheet-bullets">
+               <li><i class="fas fa-check-circle"></i> Importance of an Effective Resume</li>
+               <li><i class="fas fa-check-circle"></i> How Companies View your Resume</li>
+               <li><i class="fas fa-check-circle"></i> Top Resume Tips</li>
+             </ul>
+           </div>
+           <p style="margin-top:1rem;font-size:0.88rem;">By the end of this module, you will have a well-crafted resume that effectively showcases your skills and experiences, increasing your chances of securing job interviews.</p>`,
+    takeaways:['Recruiters spend an average of 6–7 seconds on an initial resume scan — clarity is everything.','Every bullet point should follow: Action Verb + Task + Measurable Result.','One page for under 5 years experience; two pages is acceptable beyond that.'],
+    action:'Rewrite 3 bullet points from your current resume using the Action Verb + Task + Result formula and compare the before/after.',
+    resources:[]
+  },
+  {
+    id:'w2m3', icon:'fa-layer-group', title:'Resume Structure', subtitle:'Mandatory',
+    hasVideo:true, videoUrl:'https://drive.google.com/file/d/1NSX77v8qgfsUQ6Bj2ZW04xcBV4F5FilY/view?usp=drive_link',
+    notes:`<p style="margin-bottom:1rem;">Let's dive deeper into the specific sections of a resume. Understanding how to effectively structure each section will enhance the overall impact of your resume, making it more attractive to potential employers.</p>
+           <div style="background:#f0f7f4;border-radius:14px;padding:1.2rem 1.4rem;">
+             <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--brand-teal);margin-bottom:0.7rem;"><i class="fas fa-play-circle" style="margin-right:6px;"></i>Key Topics Covered</p>
+             <ul class="worksheet-bullets">
+               <li><i class="fas fa-check-circle"></i> Contact Information</li>
+               <li><i class="fas fa-check-circle"></i> Summary</li>
+               <li><i class="fas fa-check-circle"></i> Education Section</li>
+               <li><i class="fas fa-check-circle"></i> Technical Skills and Tools</li>
+               <li><i class="fas fa-check-circle"></i> Work Experience</li>
+               <li><i class="fas fa-check-circle"></i> University Projects</li>
+               <li><i class="fas fa-check-circle"></i> Awards and Involvement</li>
+               <li><i class="fas fa-check-circle"></i> Soft Skills</li>
+             </ul>
+           </div>
+           <div style="background:#fff8f7;border-radius:14px;padding:1.2rem 1.4rem;margin-top:1rem;border:1px solid #f5c6be;">
+             <p style="font-size:0.84rem;font-weight:700;color:var(--brand-accent);margin-bottom:0.6rem;"><i class="fas fa-calendar-check" style="margin-right:6px;"></i>Need Help? Book a Coach Call</p>
+             <div style="display:flex;flex-wrap:wrap;gap:1rem;font-size:0.82rem;line-height:1.9;">
+               <div><strong>Nitti Vidhu Mohan</strong><br><a href="https://calendly.com/nitti-v" target="_blank" style="color:var(--brand-teal);">calendly.com/nitti-v</a> · nitti.v@elevateme.pro</div>
+               <div><strong>Dr. Divina Raghav</strong><br><a href="https://tidycal.com/divinar" target="_blank" style="color:var(--brand-teal);">tidycal.com/divinar</a> · divina.r@elevateme.pro</div>
+             </div>
+           </div>
+           <div style="background:#f0f7f4;border-radius:14px;padding:1rem 1.4rem;margin-top:1rem;">
+             <p style="font-size:0.84rem;"><i class="fas fa-upload" style="color:var(--brand-teal);margin-right:8px;"></i><strong>Submit Your Resume:</strong> Once updated, submit through the LMS submission link after completing all Week 2 modules.</p>
+           </div>`,
+    takeaways:['Your professional summary is your headline — make it role-specific, never generic.','For entry-level roles, Education should come before Work Experience.','University Projects carry as much weight as work experience — treat them with the same rigor.'],
+    action:'Review your resume against all 8 structural sections. Identify which are missing or weak and update them before your next coach call.',
+    resources:[
+      {label:'Book with Nitti – Calendly', icon:'fa-calendar-check', tag:'Book', url:'https://calendly.com/nitti-v'},
+      {label:'Book with Dr. Divina – TidyCal', icon:'fa-calendar-check', tag:'Book', url:'https://tidycal.com/divinar'}
+    ]
+  },
+  {
+    id:'w2m4', icon:'fa-linkedin fab', title:'Creating a LinkedIn Profile', subtitle:'Mandatory',
+    hasVideo:false,
+    notes:`<p style="margin-bottom:1rem;">This module guides you through creating a robust LinkedIn profile. A well-crafted LinkedIn profile is crucial for networking, job searching, and establishing your professional brand. It will help you attract positive attention from recruiters and potential employers.</p>
+           <div style="background:#f0f7f4;border-radius:14px;padding:1.2rem 1.4rem;">
+             <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--brand-teal);margin-bottom:0.7rem;"><i class="fas fa-list-check" style="margin-right:6px;"></i>What to Complete</p>
+             <ul class="worksheet-bullets">
+               <li><i class="fas fa-check-circle"></i> Follow the LinkedIn Profile Checklist</li>
+               <li><i class="fas fa-check-circle"></i> Add a professional photo and banner</li>
+               <li><i class="fas fa-check-circle"></i> Optimise your headline with role-relevant keywords</li>
+               <li><i class="fas fa-check-circle"></i> Complete your About section in first person</li>
+               <li><i class="fas fa-check-circle"></i> Enable "Open to Work" if applicable</li>
+             </ul>
+           </div>
+           <div style="background:#eef7f2;border-radius:14px;padding:1rem 1.4rem;margin-top:1rem;border:1px solid #c8e6d8;">
+             <p style="font-size:0.84rem;"><i class="fas fa-info-circle" style="color:var(--brand-teal);margin-right:8px;"></i><strong>Already have a profile?</strong> If your LinkedIn already follows the guidelines in the checklist, skip this module and move to the next one.</p>
+           </div>`,
+    takeaways:['Profiles with a professional photo get 21× more views from recruiters.','Your LinkedIn headline appears in every search result — pack it with relevant keywords.','Recruiters filter by location and skills — make sure both are accurately filled in.'],
+    action:'Complete the LinkedIn Profile Checklist. Tick every item. If you score less than 80%, book a coach call to review it together.',
+    resources:[
+      {label:'LinkedIn Profile Checklist', icon:'fa-list-check', tag:'Checklist', url:'#'}
+    ]
+  },
+  {
+    id:'w2m5', icon:'fa-calendar-alt', title:'Book a Call with your Career Coach', subtitle:'Resume review support',
+    hasVideo:false,
+    notes:`<p style="margin-bottom:1.2rem;">Now that you are working on your resume and filling in your details, it's time to book a call with your Career Coach. This will be a focused session on your resume and LinkedIn.</p>
+           <div style="display:flex;flex-wrap:wrap;gap:1.2rem;margin-bottom:1.2rem;">
+             <div style="flex:1;min-width:220px;background:#f4faf7;border-radius:14px;padding:1.2rem;">
+               <div style="display:flex;gap:0.8rem;align-items:center;margin-bottom:0.8rem;"><div class="coach-avatar">NV</div><strong>Nitti Vidhu Mohan</strong></div>
+               <p style="font-size:0.84rem;line-height:1.9;">
+                 <i class="fas fa-calendar" style="color:var(--brand-teal);width:18px;"></i> <a href="https://calendly.com/nitti-v" target="_blank" style="color:var(--brand-teal);">calendly.com/nitti-v</a><br>
+                 <i class="fas fa-envelope" style="color:var(--brand-teal);width:18px;"></i> nitti.v@elevateme.pro<br>
+                 <i class="fas fa-phone" style="color:var(--brand-teal);width:18px;"></i> 614-559-3829
+               </p>
+             </div>
+             <div style="flex:1;min-width:220px;background:#f4faf7;border-radius:14px;padding:1.2rem;">
+               <div style="display:flex;gap:0.8rem;align-items:center;margin-bottom:0.8rem;"><div class="coach-avatar">DR</div><strong>Dr. Divina Raghav</strong></div>
+               <p style="font-size:0.84rem;line-height:1.9;">
+                 <i class="fas fa-calendar" style="color:var(--brand-teal);width:18px;"></i> <a href="https://tidycal.com/divinar" target="_blank" style="color:var(--brand-teal);">tidycal.com/divinar</a><br>
+                 <i class="fas fa-envelope" style="color:var(--brand-teal);width:18px;"></i> divina.r@elevateme.pro<br>
+                 <i class="fas fa-phone" style="color:var(--brand-teal);width:18px;"></i> 614-585-5715
+               </p>
+             </div>
+           </div>
+           <div style="background:#f0f7f4;border-radius:14px;padding:1rem 1.4rem;font-size:0.84rem;line-height:1.9;">
+             <strong>Instructions:</strong><br>
+             1. Click the booking link to open the calendar<br>
+             2. Choose a date and time that works for you<br>
+             3. Fill in your name, email, and topics to discuss<br>
+             4. Confirm — you'll receive a Zoom link via email<br>
+             5. Join on time. Reschedule at least 12 hours in advance.<br>
+             6. For any emergency: nitti.v@elevateme.pro<br><br>
+             <strong>Call Duration:</strong> 30 minutes &nbsp;·&nbsp; <strong>Cadence:</strong> 1 call per week
+           </div>`,
+    takeaways:['Come prepared with your updated resume and LinkedIn profile for maximum value.','Prepare 2–3 specific questions before the session.','Each call is 30 minutes — book once per week, reschedule at least 12 hours in advance.'],
+    action:'Book your Week 2 coach call now. Bring your updated resume and LinkedIn profile URL to the session.',
+    resources:[
+      {label:'Book with Nitti – Calendly', icon:'fa-calendar-check', tag:'Book', url:'https://calendly.com/nitti-v'},
+      {label:'Book with Dr. Divina – TidyCal', icon:'fa-calendar-check', tag:'Book', url:'https://tidycal.com/divinar'}
+    ]
+  },
+  {
+    id:'w2m6', icon:'fa-map', title:'Overview of the Complete Recruitment Process', subtitle:'Your hiring roadmap',
+    hasVideo:false,
+    notes:`<p style="margin-bottom:1rem;">This module guides program graduates through the various stages of the hiring process, from job search to onboarding. It offers a step-by-step approach tailored specifically for those entering the job market in the U.S., helping you navigate each phase with confidence and clarity.</p>
+           <div style="background:#f0f7f4;border-radius:14px;padding:1.2rem 1.4rem;">
+             <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--brand-teal);margin-bottom:0.9rem;"><i class="fas fa-route" style="margin-right:6px;"></i>The Full Hiring Journey</p>
+             <div style="display:flex;flex-direction:column;gap:0.5rem;">
+               ${['Job Search & Application','Resume Screening','Initial Recruiter Screening','Online Assessments','Hiring Manager Interview','Technical Round','Project / Case Study','Final Interview','Reference Checks','Job Offer & Negotiation','Onboarding'].map((s,i)=>`<div style="display:flex;align-items:center;gap:0.8rem;padding:0.5rem 0.8rem;background:white;border-radius:8px;font-size:0.85rem;"><span style="width:24px;height:24px;background:var(--brand-teal);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;flex-shrink:0;">${i+1}</span>${s}</div>`).join('')}
+             </div>
+           </div>
+           <p style="margin-top:1rem;font-size:0.88rem;">By following this guide, you can effectively navigate the hiring process from searching for job openings to successfully onboarding in a new role. Highlighting program projects, continuous learning, practicing with mock interviews, and following up after interviews are key strategies to enhance your job search and career success.</p>`,
+    takeaways:['Most hiring processes have 6–10 distinct stages — knowing what comes next reduces anxiety.','Every stage requires a different type of preparation — treat each one separately.','Following up professionally after every stage keeps you top of mind with recruiters.'],
+    action:'For one company you are targeting, research and map out which of these stages they use. Note it in your Job Search Worksheet.',
+    resources:[]
+  },
+  {
+    id:'w2m7', icon:'fa-diagram-project', title:'Understanding the Various Recruitment Steps', subtitle:'Step-by-step breakdown',
+    hasVideo:true, videoUrl:'https://drive.google.com/file/d/1wZov0ANl0Wcoh7NfqkmJftVghFRhI4iT/view?usp=drive_link',
+    notes:`<p style="margin-bottom:1rem;">Here we will discuss the various steps involved in the recruitment process, which will help you prepare effectively for job applications. Understanding these steps will support you to navigate the hiring process with confidence and improve your chances of success.</p>
+           <div style="background:#f0f7f4;border-radius:14px;padding:1.2rem 1.4rem;">
+             <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--brand-teal);margin-bottom:0.7rem;"><i class="fas fa-list-check" style="margin-right:6px;"></i>Recruitment Steps to Prepare for</p>
+             <ul class="worksheet-bullets">
+               <li><i class="fas fa-check-circle"></i> Resume and Application Submission</li>
+               <li><i class="fas fa-check-circle"></i> Initial Screening with the Recruiter</li>
+               <li><i class="fas fa-check-circle"></i> Online Assessments</li>
+               <li><i class="fas fa-check-circle"></i> Interview with Hiring Manager or Team Manager</li>
+               <li><i class="fas fa-check-circle"></i> Technical Round</li>
+               <li><i class="fas fa-check-circle"></i> Project Submission or Case Study</li>
+               <li><i class="fas fa-check-circle"></i> Final Interview</li>
+               <li><i class="fas fa-check-circle"></i> Reference Checks</li>
+               <li><i class="fas fa-check-circle"></i> Job Offer and Negotiation</li>
+             </ul>
+           </div>
+           <p style="margin-top:1rem;font-size:0.88rem;">It is highly recommended to tailor your approach for each step, leverage mock interviews and practice assessments, and engage with your career coach and technical mentor to enhance your readiness for these stages.</p>`,
+    takeaways:['Tailor your preparation specifically for each recruitment stage — generic prep is not enough.','Mock interviews and practice assessments are your most valuable preparation tools.','Engage your career coach and technical mentor at every stage, not just at the beginning.'],
+    action:'Rate your current readiness for each of the 9 recruitment steps from 1–5. Share this self-assessment with your coach in your next call.',
+    resources:[]
+  },
+  {
+    id:'w2m8', icon:'fa-phone-alt', title:'Prepare for the Initial Screening Call', subtitle:'First impression matters',
+    hasVideo:true, videoUrl:'https://drive.google.com/file/d/1Inog_TlJoDXyKRBu68oOGcN0mN1EJFUy/view?usp=drive_link',
+    notes:`<p style="margin-bottom:1rem;">This module is designed to help you effectively prepare for initial screening interviews. These are critical first steps in the hiring process, where recruiters assess your basic qualifications and fit for the role. By following the steps outlined, you can make a strong impression and increase your chances of moving forward.</p>
+           <div style="background:#f0f7f4;border-radius:14px;padding:1.2rem 1.4rem;">
+             <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--brand-teal);margin-bottom:0.7rem;"><i class="fas fa-play-circle" style="margin-right:6px;"></i>Key Topics Covered</p>
+             <ul class="worksheet-bullets">
+               <li><i class="fas fa-check-circle"></i> What Are Initial Screening Calls?</li>
+               <li><i class="fas fa-check-circle"></i> Step-by-Step Guide to Preparing for Initial Interviews</li>
+               <li><i class="fas fa-check-circle"></i> How to Prepare for Screening Calls Made Without Prior Warning</li>
+             </ul>
+           </div>`,
+    takeaways:['Initial screening calls are about fit and enthusiasm — not technical depth.','Always have your resume, the job description, and company research in front of you.','Prepare a clear 60-second pitch about yourself before every screening call.'],
+    action:'Practice answering "Tell me about yourself" and "Why are you interested in this role?" out loud. Record yourself and listen back.',
+    resources:[
+      {label:'How to Prepare for your Phone Screen', icon:'fa-external-link-alt', tag:'Guide', url:'#'},
+      {label:'Practice Common Interview Questions', icon:'fa-external-link-alt', tag:'Practice', url:'#'}
+    ]
+  },
+  {
+    id:'w2m9', icon:'fa-headset', title:'Handling Initial Screening Calls from Recruiters', subtitle:'2 scenario videos',
+    hasVideo:false, isDualVideo:true,
+    videoUrl1:'https://drive.google.com/file/d/1TwVNF7sK9Xw1rJ6oH7AI9l0ylme4Fw4l/view?usp=sharing',
+    videoUrl2:'https://drive.google.com/file/d/1sfJkpx8Qz4ML6rBxkTVG4uP7Ck_hqMBC/view?usp=sharing',
+    notes:`<p style="margin-bottom:1rem;">This module is designed to help you navigate the challenge of receiving initial screening calls from recruiters.</p>
+           <p style="margin-bottom:1rem;">There are <strong>2 videos</strong> for this module which provide you with clear guidelines and sample scripts to handle unexpected recruiter calls — whether you can reschedule or need to handle the call immediately. This will help you respond professionally and confidently in any situation.</p>
+           <div style="background:#f0f7f4;border-radius:14px;padding:1.2rem 1.4rem;">
+             <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--brand-teal);margin-bottom:0.7rem;"><i class="fas fa-video" style="margin-right:6px;"></i>Two Scenarios Covered</p>
+             <ul class="worksheet-bullets">
+               <li><i class="fas fa-check-circle"></i> <strong>Scenario 1:</strong> Recruiter Call That Can Be Rescheduled</li>
+               <li><i class="fas fa-check-circle"></i> <strong>Scenario 2:</strong> Recruiter Call That Cannot Be Rescheduled</li>
+             </ul>
+           </div>
+           <p style="margin-top:1rem;font-size:0.88rem;">By following these steps, you can effectively prepare for initial screening interviews and make a positive impression on recruiters. Practice regularly and use the resources provided to refine your approach and improve your chances of success.</p>`,
+    takeaways:['Never sound caught off guard — always have a professional response ready, even for surprise calls.','It is completely acceptable to politely reschedule a surprise recruiter call — do it gracefully.','Practice both scenarios out loud so your response becomes second nature.'],
+    action:'Practice both scripts with a friend or in front of a mirror. Then try a mock scenario with your career coach in your next session.',
+    resources:[]
+  },
+  {
+    id:'w2m10', icon:'fa-tasks', title:'Week 2 — Practice Activity', subtitle:'Complete before Week 3',
+    hasVideo:false,
+    notes:`<p style="margin-bottom:1.2rem;">Complete all three actions below before moving to Week 3. These are essential steps that will form the foundation of your job search.</p>
+           <ul class="practice-checklist">
+             <li><i class="fas fa-check"></i> Build your ATS-optimised resume</li>
+             <li><i class="fas fa-check"></i> Optimise your LinkedIn profile using the checklist</li>
+             <li><i class="fas fa-check"></i> Run your resume through an ATS scanner and review your match score</li>
+           </ul>
+           <div style="background:#eef7f2;border-radius:14px;padding:1rem 1.4rem;margin-top:1rem;border:1px solid #c8e6d8;">
+             <p style="font-size:0.84rem;"><i class="fas fa-trophy" style="color:var(--brand-teal);margin-right:8px;"></i><strong>Well done on completing Week 2!</strong> Once you have finished all three activities, submit your updated resume through the LMS submission link that will appear after completing all Week 2 modules.</p>
+           </div>`,
+    takeaways:['An ATS-optimised resume and a strong LinkedIn profile work together — both are essential.','Your ATS scan score should be 70%+ for any role you apply to.','Completing these before Week 3 sets you up to focus on interviews with confidence.'],
+    action:'Submit your completed ATS resume through the LMS submission link. Screenshot your Jobscan score and share it with your coach.',
+    resources:[
+      {label:'ATS Resume Scanner – Jobscan', icon:'fa-search', tag:'Tool', url:'https://www.jobscan.co'}
+    ]
+  }
+];
+
+buildWeekPage(2, MODULES);
+
+// ── Dual video injection for module w2m9 ──
+(function(){
+    const mod = MODULES.find(m => m.isDualVideo);
+    if (!mod) return;
+    const panel = document.getElementById('panel-' + mod.id);
+    if (!panel) return;
+    const notesCard = panel.querySelector('.lesson-notes-card');
+    if (!notesCard) return;
+
+    const dualWrap = document.createElement('div');
+    dualWrap.innerHTML = `
+        <div class="dual-video-wrap">
+            <div>
+                <div class="dual-video-label"><i class="fas fa-play-circle"></i> Video 1 — Call That Can Be Rescheduled</div>
+                <div class="lesson-video-wrap" id="vwrap-${mod.id}-1">
+                    <div class="lesson-video-placeholder"><i class="fas fa-play-circle"></i><span>Scenario 1</span></div>
+                </div>
+                <div class="dual-video-admin-row">
+                    <input class="video-url-input" id="vid-input-${mod.id}-1" value="${mod.videoUrl1}" style="flex:1;font-size:0.78rem;"/>
+                    <button class="btn-save-url" onclick="saveDualVideo('${mod.id}',1)" style="font-size:0.75rem;padding:0.35rem 0.7rem;"><i class="fas fa-save"></i></button>
+                    <button class="btn-clear-url" onclick="clearDualVideo('${mod.id}',1)"><i class="fas fa-times"></i></button>
+                </div>
+            </div>
+            <div>
+                <div class="dual-video-label"><i class="fas fa-play-circle"></i> Video 2 — Call That Cannot Be Rescheduled</div>
+                <div class="lesson-video-wrap" id="vwrap-${mod.id}-2">
+                    <div class="lesson-video-placeholder"><i class="fas fa-play-circle"></i><span>Scenario 2</span></div>
+                </div>
+                <div class="dual-video-admin-row">
+                    <input class="video-url-input" id="vid-input-${mod.id}-2" value="${mod.videoUrl2}" style="flex:1;font-size:0.78rem;"/>
+                    <button class="btn-save-url" onclick="saveDualVideo('${mod.id}',2)" style="font-size:0.75rem;padding:0.35rem 0.7rem;"><i class="fas fa-save"></i></button>
+                    <button class="btn-clear-url" onclick="clearDualVideo('${mod.id}',2)"><i class="fas fa-times"></i></button>
+                </div>
+            </div>
+        </div>`;
+    notesCard.parentNode.insertBefore(dualWrap, notesCard);
+
+    function embedGDrive(wrapId, url){
+        const m = url.match(/\/file\/d\/([^/]+)/);
+        if (!m) return;
+        const w = document.getElementById(wrapId);
+        if (w) w.innerHTML = `<iframe src="https://drive.google.com/file/d/${m[1]}/preview" allowfullscreen allow="autoplay"></iframe>`;
+    }
+    embedGDrive('vwrap-' + mod.id + '-1', mod.videoUrl1);
+    embedGDrive('vwrap-' + mod.id + '-2', mod.videoUrl2);
+})();
+
+window.saveDualVideo = function(moduleId, num){
+    const inp = document.getElementById('vid-input-' + moduleId + '-' + num);
+    if (!inp || !inp.value.trim()){ showToast('Please paste a URL first'); return; }
+    const url = inp.value.trim();
+    const m = url.match(/\/file\/d\/([^/]+)/);
+    const embed = m ? 'https://drive.google.com/file/d/' + m[1] + '/preview' : url;
+    const wrap = document.getElementById('vwrap-' + moduleId + '-' + num);
+    if (wrap) wrap.innerHTML = '<iframe src="' + embed + '" allowfullscreen allow="autoplay"></iframe>';
+    showToast('Video ' + num + ' saved!');
+};
+
+window.clearDualVideo = function(moduleId, num){
+    const wrap = document.getElementById('vwrap-' + moduleId + '-' + num);
+    if (wrap) wrap.innerHTML = '<div class="lesson-video-placeholder"><i class="fas fa-play-circle"></i><span>Scenario ' + num + '</span></div>';
+    const inp = document.getElementById('vid-input-' + moduleId + '-' + num);
+    if (inp) inp.value = '';
+    showToast('Video ' + num + ' removed');
+};
+</script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElevateMe · Week 1: Foundations & Job Search</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../shared/styles.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="logo-area" href="../"></a>
+    <div class="nav-links">
+        <span class="admin-badge"><i class="fas fa-shield-alt"></i> Admin Mode</span>
+        <a href="../">Dashboard</a>
+        <a href="#" class="active">Week 1</a>
+        <a href="#" class="btn-accent">Student Portal</a>
+    </div>
+</nav>
+
+<div class="week-shell">
+    <aside class="week-sidebar">
+        <div class="sidebar-header">
+            <a href="../" class="sidebar-back"><i class="fas fa-arrow-left"></i> Dashboard</a>
+            <div class="sidebar-phase">Phase 01</div>
+            <div class="sidebar-week-title">Week 1: Foundations & Job Search</div>
+        </div>
+        <div class="sidebar-progress">
+            <div class="sidebar-progress-label">
+                <span>Progress</span>
+                <strong class="week-pct" data-week="1">0%</strong>
+            </div>
+            <div class="progress-track"><div class="progress-fill week-fill" data-week="1"></div></div>
+        </div>
+        <nav class="sidebar-modules" id="weekSidebar"></nav>
+        <div class="sidebar-nav">
+            <button class="sidebar-nav-btn" id="w1-prev" onclick="navigateModule(1,-1)"><i class="fas fa-chevron-up"></i> Prev</button>
+            <button class="sidebar-nav-btn" id="w1-next" onclick="navigateModule(1,1)">Next <i class="fas fa-chevron-down"></i></button>
+        </div>
+    </aside>
+    <div class="week-content" id="weekContent"></div>
+</div>
+
+<div class="footer-hint">
+    <span><i class="far fa-copyright"></i> ElevateMe</span>
+    <span>Week 1 of 5</span>
+</div>
+<div class="toast" id="toast"><i class="fas fa-check-circle"></i> <span id="toastMsg"></span></div>
+
+<script src="../shared/app.js"></script>
+<script>
+const MODULES = [
+  { id:'w1m1', icon:'fa-hand-peace', title:'Welcome to ElevateMe', subtitle:'Bootcamp overview',
+    notes:`<p style="margin-bottom:1rem;">Hello and congratulations on embarking on this exciting journey! We're thrilled to have you join our community of aspiring professionals.</p>
+           <p style="margin-bottom:1rem;">This program is designed to enhance your technical skills and equip you with comprehensive career skills to thrive in the US job market.</p>
+           <p>Each module, lesson, and activity has been crafted with your success in mind. Engage actively, challenge yourself, and don't hesitate to reach out to your support team.</p>`,
+    takeaways:['This program covers both technical skills and career readiness for the US job market.','Each of the 5 weeks builds on the last — complete them in order.','Career coaches are available for 1-on-1 calls throughout the program.'],
+    action:'Explore the full Week 1 Table of Contents and familiarize yourself with all 5 modules ahead.',
+    resources:[] },
+
+  { id:'w1m2', icon:'fa-file-alt', title:'Job Search Worksheet', subtitle:'Your job search plan',
+    notes:`<p style="margin-bottom:1rem;">Fill in the Job Search Worksheet using the link below. This is a crucial tool to organize your job search, refine your elevator pitch, update your resume, and apply for roles directly.</p>
+           <div style="background:#f0f7f4;border-radius:14px;padding:1.2rem 1.4rem;margin-top:1rem;">
+             <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--brand-teal);margin-bottom:0.7rem;"><i class="fas fa-list-ol" style="margin-right:6px;"></i>Submission Instructions</p>
+             <ol style="padding-left:1.2rem;font-size:0.88rem;line-height:1.9;">
+               <li>Click the link below to open the view-only Google Doc.</li>
+               <li>Go to <strong>File → Make a Copy</strong> or <strong>Download</strong> to edit.</li>
+               <li>Fill out with as much detail as possible.</li>
+               <li>Save as: <strong>FirstName_LastName_Job Search Worksheet</strong></li>
+               <li>Submit via email once complete.</li>
+             </ol>
+           </div>`,
+    takeaways:['The worksheet covers your job search plan, elevator pitch, resume, and LinkedIn all in one place.','Fill it in as carefully as you would a real job application.','Book a coach call if you need help with any section.'],
+    action:'Access the Job Search Worksheet, make a copy, fill it in completely, and submit via email as FirstName_LastName_Job Search Worksheet.',
+    resources:[{label:'Job Search Worksheet (Google Doc)', icon:'fa-external-link-alt', tag:'Open', url:'#'}] },
+
+  { id:'w1m3', icon:'fa-calendar-alt', title:'Book a Call with your Career Coach', subtitle:'Meet Nitti & Dr. Divina',
+    notes:`<p style="margin-bottom:1.2rem;">Now that you are working on the Job Search Worksheet, book your first introductory call with your Career Coach — Nitti or Dr. Divina.</p>
+           <div style="display:flex;flex-wrap:wrap;gap:1.2rem;margin-bottom:1.2rem;">
+             <div style="flex:1;min-width:220px;background:#f4faf7;border-radius:14px;padding:1.2rem;">
+               <div style="display:flex;gap:0.8rem;align-items:center;margin-bottom:0.8rem;">
+                 <div class="coach-avatar">NV</div><strong>Nitti Vidhu Mohan</strong>
+               </div>
+               <p style="font-size:0.84rem;line-height:1.8;">
+                 <i class="fas fa-calendar" style="color:var(--brand-teal);width:18px;"></i> <a href="https://calendly.com/nitti-v" target="_blank" style="color:var(--brand-teal);">calendly.com/nitti-v</a><br>
+                 <i class="fas fa-envelope" style="color:var(--brand-teal);width:18px;"></i> nitti.v@elevateme.pro<br>
+                 <i class="fas fa-phone" style="color:var(--brand-teal);width:18px;"></i> 614-559-3829
+               </p>
+             </div>
+             <div style="flex:1;min-width:220px;background:#f4faf7;border-radius:14px;padding:1.2rem;">
+               <div style="display:flex;gap:0.8rem;align-items:center;margin-bottom:0.8rem;">
+                 <div class="coach-avatar">DR</div><strong>Dr. Divina Raghav</strong>
+               </div>
+               <p style="font-size:0.84rem;line-height:1.8;">
+                 <i class="fas fa-calendar" style="color:var(--brand-teal);width:18px;"></i> <a href="https://tidycal.com/divinar" target="_blank" style="color:var(--brand-teal);">tidycal.com/divinar</a><br>
+                 <i class="fas fa-envelope" style="color:var(--brand-teal);width:18px;"></i> divina.r@elevateme.pro<br>
+                 <i class="fas fa-phone" style="color:var(--brand-teal);width:18px;"></i> 614-585-5715
+               </p>
+             </div>
+           </div>
+           <div style="background:#fff8f7;border-radius:14px;padding:1rem 1.2rem;border:1px solid #f5c6be;">
+             <p style="font-size:0.84rem;line-height:1.8;"><strong>Call Duration:</strong> 30 minutes &nbsp;·&nbsp; <strong>Cadence:</strong> 1 per week &nbsp;·&nbsp; <strong>Reschedule:</strong> at least 12 hrs before</p>
+           </div>`,
+    takeaways:['Book your call early — this is your most personalized support resource.','Come prepared with your Job Search Worksheet and 2–3 specific questions.','Each call is 30 minutes — you can book one per week.'],
+    action:"Book your first coach call this week using Nitti's Calendly or Dr. Divina's TidyCal. Confirm the Zoom link in your email.",
+    resources:[
+      {label:'Book with Nitti – Calendly', icon:'fa-calendar-check', tag:'Book', url:'https://calendly.com/nitti-v'},
+      {label:'Book with Dr. Divina – TidyCal', icon:'fa-calendar-check', tag:'Book', url:'https://tidycal.com/divinar'}
+    ]},
+
+  { id:'w1m4', icon:'fa-hourglass-half', title:'Time Management', subtitle:'Eisenhower Matrix', optional:true,
+    hasVideo:true,
+    videoUrl:'https://drive.google.com/file/d/1rjV5RH4KRc_52AV9RaSO4cSTlJTZH8d8/view?usp=sharing',
+    notes:`<p style="margin-bottom:1rem;">Highly recommended for students managing both this program and a Technical Project.</p>
+           <div style="background:#f0f7f4;border-radius:14px;padding:1.2rem 1.4rem;">
+             <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--brand-teal);margin-bottom:0.7rem;">Key Topics</p>
+             <ul class="worksheet-bullets">
+               <li><i class="fas fa-check-circle"></i> Why Time Management matters</li>
+               <li><i class="fas fa-check-circle"></i> Step 1: Listing out your tasks</li>
+               <li><i class="fas fa-check-circle"></i> Step 2: Prioritizing your tasks</li>
+               <li><i class="fas fa-check-circle"></i> Step 3: How to use the Eisenhower Box</li>
+             </ul>
+           </div>`,
+    takeaways:["List all your tasks first — you can't prioritize what you haven't written down.",'The Eisenhower Box separates urgent tasks from important ones.','Working smarter with prioritization beats working longer without a plan.'],
+    action:'List all your daily tasks then categorize each using the Eisenhower Box template. Share with your coach in your next call.',
+    resources:[
+      {label:'Watch Video on Google Drive', icon:'fa-play-circle', tag:'Video', url:'https://drive.google.com/file/d/1rjV5RH4KRc_52AV9RaSO4cSTlJTZH8d8/view?usp=sharing'},
+      {label:'Eisenhower Box Template', icon:'fa-th-large', tag:'Template', url:'#'}
+    ]},
+
+  { id:'w1m5', icon:'fa-journal-whills', title:'Time Management with Planners', subtitle:'Daily planner system', optional:true,
+    hasVideo:true,
+    videoUrl:'https://drive.google.com/file/d/1fcz1wycNOs3clzhCw59p5ZTMhs5fXLaW/view?usp=drive_link',
+    notes:`<p style="margin-bottom:1rem;">Master time management using planners to visually organize your day — meet deadlines without overwhelming stress.</p>
+           <div style="background:#f0f7f4;border-radius:14px;padding:1.2rem 1.4rem;">
+             <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--brand-teal);margin-bottom:0.7rem;">Key Topics</p>
+             <ul class="worksheet-bullets">
+               <li><i class="fas fa-check-circle"></i> Introduction to Daily Planning</li>
+               <li><i class="fas fa-check-circle"></i> Daily Planner Template walkthrough</li>
+               <li><i class="fas fa-check-circle"></i> 5 Ways to Use a Planner Effectively</li>
+             </ul>
+           </div>`,
+    takeaways:['A planner externalizes your schedule so your brain can focus on doing, not remembering.','Plan your goals, submissions, to-do lists, and schedules together.','10 minutes of planning daily reduces stress significantly.'],
+    action:"Download the Daily Planner Template and fill in tomorrow's schedule tonight. Include your goals, to-do list, and any deadlines.",
+    resources:[
+      {label:'Watch Video on Google Drive', icon:'fa-play-circle', tag:'Video', url:'https://drive.google.com/file/d/1fcz1wycNOs3clzhCw59p5ZTMhs5fXLaW/view?usp=drive_link'},
+      {label:'Daily Planner Template', icon:'fa-calendar-day', tag:'Template', url:'#'}
+    ]}
+];
+buildWeekPage(1, MODULES);
+</script>
+</body>
+</html>
