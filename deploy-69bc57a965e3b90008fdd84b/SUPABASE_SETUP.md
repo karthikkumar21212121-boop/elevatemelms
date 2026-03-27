@@ -82,7 +82,7 @@ CREATE POLICY "Admins can read all profiles"
     ON profiles FOR SELECT
     USING (
         auth.jwt() ->> 'email' IN (
-            'nitti.v@elevateme.pro',
+            'support@elevateme.pro',
             'divina.r@elevateme.pro'
         )
     );
@@ -91,7 +91,7 @@ CREATE POLICY "Admins can read all progress"
     ON progress FOR SELECT
     USING (
         auth.jwt() ->> 'email' IN (
-            'nitti.v@elevateme.pro',
+            'support@elevateme.pro',
             'divina.r@elevateme.pro'
         )
     );
@@ -181,7 +181,7 @@ const _sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 ## Step 7 — Create YOUR admin account
 
 1. In Supabase → **Authentication** → **Users** → **Add user**
-2. Enter your email (nitti.v@elevateme.pro or divina.r@elevateme.pro)
+2. Enter your email (support@elevateme.pro or divina.r@elevateme.pro)
 3. Set a strong password
 4. You can now sign in at `yourdomain.com/admin.html`
 

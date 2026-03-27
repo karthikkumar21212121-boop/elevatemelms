@@ -244,7 +244,7 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const _sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // Admin emails — add yours here
-const ADMIN_EMAILS = ['nitti.v@elevateme.pro', 'divina.r@elevateme.pro'];
+const ADMIN_EMAILS = ['support@elevateme.pro', 'divina.r@elevateme.pro'];
 
 const WEEKS = 10;
 const WEEK_MODULES = {
@@ -387,7 +387,8 @@ function renderTable(students) {
             <td><span class="status-badge ${status}"><i class="fas ${statusIcon[status]}" style="font-size:0.65rem;"></i>${statusMap[status]}</span></td>
             <td style="display:flex;gap:0.4rem;flex-wrap:wrap;">
                 <button class="action-btn" onclick='openDrawer(${JSON.stringify(s)})'><i class="fas fa-eye"></i> Detail</button>
-                <button class="action-btn danger" onclick="resetPassword('${s.email}')"><i class="fas fa-key"></i> Reset</button>
+                <button class="action-btn danger" onclick="resetPassword('${s.id}','${s.email}')"><i class="fas fa-key"></i> Reset pw</button>
+                <button class="action-btn danger" onclick="deleteStudent('${s.id}','${s.email}')"><i class="fas fa-trash"></i></button>
             </td>
         </tr>`;
     }).join('');
@@ -407,11 +408,22 @@ function filterStudents() {
 }
 
 // ── ADD STUDENT ──
+// ── ADMIN API helper — calls Netlify function ──
+async function adminAPI(payload) {
+    const { data: { session } } = await _sb.auth.getSession();
+    const res = await fetch('/.netlify/functions/admin-users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...payload, calling_user_token: session.access_token })
+    });
+    return res.json();
+}
+
 async function addStudent() {
     const name  = document.getElementById('newName').value.trim();
     const email = document.getElementById('newEmail').value.trim();
     const pass  = document.getElementById('newPassword').value.trim();
-    const errEl = document.getElementById('addError');
+    const errEl  = document.getElementById('addError');
     const succEl = document.getElementById('addSuccess');
     errEl.classList.remove('show'); succEl.classList.remove('show');
     if (!email || !pass) { errEl.textContent = 'Email and password are required.'; errEl.classList.add('show'); return; }
@@ -420,33 +432,33 @@ async function addStudent() {
     const btn = document.getElementById('addBtn');
     btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Creating…';
 
-    // Use Admin API via edge function (see setup guide)
-    // For now we use signUp which sends a confirmation email
-    const { data, error } = await _sb.auth.admin?.createUser?.({
-        email, password: pass,
-        email_confirm: true,
-        user_metadata: { full_name: name }
-    }) ?? await _sb.auth.signUp({ email, password: pass, options: { data: { full_name: name } } });
+    const result = await adminAPI({ action: 'create', email, password: pass, full_name: name });
 
     btn.disabled = false; btn.innerHTML = 'Create Account';
 
-    if (error) { errEl.textContent = error.message; errEl.classList.add('show'); }
+    if (result.error) { errEl.textContent = result.error; errEl.classList.add('show'); }
     else {
-        // Insert profile record
-        if (data?.user) {
-            await _sb.from('profiles').upsert({ id: data.user.id, email, full_name: name }, { onConflict: 'id' });
-        }
-        succEl.textContent = `✓ Account created for ${email}. A confirmation email has been sent.`;
+        succEl.textContent = `✓ Account created for ${email}!`;
         succEl.classList.add('show');
         setTimeout(() => { closeAddModal(); loadData(); }, 2000);
     }
 }
 
-async function resetPassword(email) {
-    if (!confirm(`Send a password reset email to ${email}?`)) return;
-    const { error } = await _sb.auth.resetPasswordForEmail(email, { redirectTo: window.location.origin + '/login.html' });
-    if (error) alert('Error: ' + error.message);
-    else alert(`✓ Reset email sent to ${email}`);
+async function resetPassword(userId, email) {
+    const newPass = prompt(`Set a new password for ${email}:\n(min. 8 characters)`);
+    if (!newPass) return;
+    if (newPass.length < 8) { alert('Password must be at least 8 characters.'); return; }
+
+    const result = await adminAPI({ action: 'reset_password', user_id: userId, password: newPass });
+    if (result.error) alert('Error: ' + result.error);
+    else alert(`✓ Password updated for ${email}`);
+}
+
+async function deleteStudent(userId, email) {
+    if (!confirm(`Delete student account for ${email}?\n\nThis cannot be undone.`)) return;
+    const result = await adminAPI({ action: 'delete', user_id: userId });
+    if (result.error) alert('Error: ' + result.error);
+    else { alert(`✓ Account deleted for ${email}`); loadData(); }
 }
 
 // ── DRAWER ──
