@@ -25,7 +25,7 @@ exports.handler = async (event) => {
     const anonClient = createClient(SUPABASE_URL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpsZmJtYXdveWl3enZ6a2xuZ3hyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5NDI0OTMsImV4cCI6MjA4OTUxODQ5M30.JuMbxTyAhujTB4RqPiKbn5d4pxqK67EO_CTBj1xwt9o');
     const { data: { user }, error: authError } = await anonClient.auth.getUser(calling_user_token);
 
-    const ADMIN_EMAILS = ['support@elevateme.pro', 'divina.r@elevateme.pro'];
+    const ADMIN_EMAILS = ['support@elevateme.pro', 'divina.r@elevateme.pro', 'aman.p@elevateme.pro'];
     if (authError || !user || !ADMIN_EMAILS.includes(user.email)) {
         return { statusCode: 403, headers, body: JSON.stringify({ error: 'Unauthorized' }) };
     }
