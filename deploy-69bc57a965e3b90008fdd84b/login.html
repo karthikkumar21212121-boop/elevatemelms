@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElevateMe · Sign In</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Nunito Sans',sans-serif; }
+        body { min-height:100vh; background:#c8ecd4; display:flex; align-items:center; justify-content:center; padding:1rem; }
+
+        .card {
+            background:white; border-radius:20px; padding:2.5rem;
+            width:100%; max-width:420px;
+            box-shadow:0 8px 40px rgba(45,74,53,0.12);
+        }
+
+        .logo { text-align:center; margin-bottom:2rem; }
+        .logo span { font-size:1.8rem; font-weight:900; letter-spacing:-0.02em; color:#0a1a0f; }
+        .logo span em { color:#488a6d; font-style:normal; }
+        .logo p { font-size:0.85rem; color:#4a6b55; margin-top:0.3rem; font-weight:600; }
+
+        .form-group { margin-bottom:1.2rem; }
+        label { display:block; font-size:0.82rem; font-weight:700; color:#0a1a0f; margin-bottom:0.4rem; text-transform:uppercase; letter-spacing:0.05em; }
+        input[type="email"], input[type="password"] {
+            width:100%; padding:0.75rem 1rem; border:1.5px solid #c8ecd4;
+            border-radius:10px; font-size:0.95rem; color:#0a1a0f;
+            font-family:'Nunito Sans',sans-serif; transition:border-color 0.2s;
+            outline:none;
+        }
+        input:focus { border-color:#488a6d; }
+
+        .btn-login {
+            width:100%; padding:0.85rem; background:#488a6d; color:white;
+            border:none; border-radius:10px; font-size:1rem; font-weight:800;
+            font-family:'Nunito Sans',sans-serif; cursor:pointer; transition:0.2s;
+            letter-spacing:0.02em; margin-top:0.5rem;
+        }
+        .btn-login:hover { background:#2d6b52; }
+        .btn-login:disabled { background:#a0c4b0; cursor:not-allowed; }
+
+        .error-msg {
+            background:#fff0f0; border:1px solid #f5c6be; border-radius:10px;
+            padding:0.8rem 1rem; font-size:0.85rem; color:#c65343; margin-top:1rem;
+            display:none; align-items:center; gap:0.5rem;
+        }
+        .error-msg.show { display:flex; }
+
+        .forgot-link { text-align:center; margin-top:1.2rem; }
+        .forgot-link a { color:#488a6d; font-size:0.85rem; text-decoration:none; font-weight:600; }
+        .forgot-link a:hover { text-decoration:underline; }
+
+        .divider { border:none; border-top:1px solid #e8f5ee; margin:1.5rem 0; }
+
+        .footer-note { text-align:center; font-size:0.8rem; color:#4a6b55; line-height:1.6; }
+
+        /* Reset password view */
+        .reset-view { display:none; }
+        .reset-view.active { display:block; }
+        .login-view.hidden { display:none; }
+
+        .success-msg {
+            background:#eef7f2; border:1px solid #c8e6d8; border-radius:10px;
+            padding:0.8rem 1rem; font-size:0.85rem; color:#488a6d;
+            margin-top:1rem; display:none; align-items:center; gap:0.5rem;
+        }
+        .success-msg.show { display:flex; }
+
+        .back-link { background:none; border:none; color:#488a6d; font-size:0.85rem; font-weight:600; cursor:pointer; font-family:'Nunito Sans',sans-serif; padding:0; margin-bottom:1.5rem; display:flex; align-items:center; gap:0.4rem; }
+        .back-link:hover { text-decoration:underline; }
+
+        .spinner { display:inline-block; width:16px; height:16px; border:2px solid rgba(255,255,255,0.3); border-top-color:white; border-radius:50%; animation:spin 0.7s linear infinite; }
+        @keyframes spin { to { transform:rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="logo">
+        <img src="https://elevateme.pro/wp-content/themes/elevateme/assets/images/logo.svg" alt="ElevateMe" style="height:36px;width:auto;">
+        <p>Career Bootcamp · Student Portal</p>
+    </div>
+
+    <!-- LOGIN VIEW -->
+    <div class="login-view" id="loginView">
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" id="email" placeholder="you@email.com" autocomplete="email"/>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Your password" autocomplete="current-password"/>
+        </div>
+        <button class="btn-login" id="loginBtn" onclick="handleLogin()">Sign In</button>
+
+        <div class="error-msg" id="errorMsg">
+            <i class="fas fa-exclamation-circle"></i>
+            <span id="errorText">Invalid email or password.</span>
+        </div>
+
+        <div class="forgot-link">
+            <a href="#" onclick="showReset(); return false;">Forgot your password?</a>
+        </div>
+    </div>
+
+    <!-- RESET VIEW -->
+    <div class="reset-view" id="resetView">
+        <button class="back-link" onclick="showLogin()"><i class="fas fa-arrow-left"></i> Back to sign in</button>
+        <div class="form-group">
+            <label for="resetEmail">Enter your email</label>
+            <input type="email" id="resetEmail" placeholder="you@email.com"/>
+        </div>
+        <button class="btn-login" id="resetBtn" onclick="handleReset()">Send Reset Link</button>
+        <div class="success-msg" id="resetSuccess">
+            <i class="fas fa-check-circle"></i>
+            <span>Reset link sent! Check your inbox.</span>
+        </div>
+        <div class="error-msg" id="resetError">
+            <i class="fas fa-exclamation-circle"></i>
+            <span id="resetErrorText">Something went wrong. Try again.</span>
+        </div>
+    </div>
+
+    <hr class="divider">
+    <p class="footer-note">Your account is created by ElevateMe admins.<br>Contact your coach if you need access.</p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = 'https://jlfbmawoyiwzvzklngxr.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpsZmJtYXdveWl3enZ6a2xuZ3hyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5NDI0OTMsImV4cCI6MjA4OTUxODQ5M30.JuMbxTyAhujTB4RqPiKbn5d4pxqK67EO_CTBj1xwt9o';
+const _sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// If already logged in, redirect to dashboard
+(async () => {
+    const { data: { session } } = await _sb.auth.getSession();
+    if (session) window.location.href = './';
+})();
+
+async function handleLogin() {
+    const email    = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const btn      = document.getElementById('loginBtn');
+    const errEl    = document.getElementById('errorMsg');
+
+    if (!email || !password) {
+        document.getElementById('errorText').textContent = 'Please enter your email and password.';
+        errEl.classList.add('show'); return;
+    }
+    errEl.classList.remove('show');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span>';
+
+    const { error } = await _sb.auth.signInWithPassword({ email, password });
+
+    if (error) {
+        document.getElementById('errorText').textContent = error.message.includes('Invalid') ? 'Incorrect email or password. Please try again.' : error.message;
+        errEl.classList.add('show');
+        btn.disabled = false;
+        btn.innerHTML = 'Sign In';
+    } else {
+        btn.innerHTML = '✓ Signed in — redirecting…';
+        window.location.href = './';
+    }
+}
+
+async function handleReset() {
+    const email  = document.getElementById('resetEmail').value.trim();
+    const btn    = document.getElementById('resetBtn');
+    const errEl  = document.getElementById('resetError');
+    const succEl = document.getElementById('resetSuccess');
+    if (!email) { document.getElementById('resetErrorText').textContent = 'Please enter your email.'; errEl.classList.add('show'); return; }
+    errEl.classList.remove('show'); succEl.classList.remove('show');
+    btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>';
+
+    const { error } = await _sb.auth.resetPasswordForEmail(email, {
+        redirectTo: window.location.origin + '/login.html'
+    });
+
+    btn.disabled = false; btn.innerHTML = 'Send Reset Link';
+    if (error) { document.getElementById('resetErrorText').textContent = error.message; errEl.classList.add('show'); }
+    else { succEl.classList.add('show'); }
+}
+
+function showReset() {
+    document.getElementById('loginView').classList.add('hidden');
+    document.getElementById('resetView').classList.add('active');
+}
+function showLogin() {
+    document.getElementById('loginView').classList.remove('hidden');
+    document.getElementById('resetView').classList.remove('active');
+}
+
+// Enter key support
+document.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+        if (!document.getElementById('resetView').classList.contains('active')) handleLogin();
+        else handleReset();
+    }
+});
+</script>
+</body>
+</html>

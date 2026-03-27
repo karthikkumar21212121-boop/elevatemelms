@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElevateMe · Admin Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Nunito Sans',sans-serif;}
+        body{background:#f0f7f4;color:#1a1a1a;}
+
+        /* NAVBAR */
+        .navbar{background:white;padding:0.8rem 2rem;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 12px rgba(0,0,0,0.05);position:sticky;top:0;z-index:100;}
+        .logo span{font-size:1.3rem;font-weight:900;letter-spacing:-0.02em;color:#1a1a1a;}
+        .logo span em{color:#488a6d;font-style:normal;}
+        .nav-right{display:flex;align-items:center;gap:1rem;}
+        .admin-pill{background:#fff3cd;color:#856404;border:1px solid #ffc107;border-radius:20px;padding:0.25rem 0.8rem;font-size:0.75rem;font-weight:700;}
+        .btn-signout{background:none;border:1px solid #c8ecd4;border-radius:8px;padding:0.4rem 0.9rem;color:#488a6d;font-size:0.82rem;font-weight:700;cursor:pointer;transition:0.2s;font-family:'Nunito Sans',sans-serif;}
+        .btn-signout:hover{background:#f0f7f4;}
+
+        /* HEADER */
+        .page-header{max-width:1400px;margin:2rem auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+        .page-header h1{font-size:1.6rem;font-weight:900;color:#1a1a1a;}
+        .page-header p{font-size:0.88rem;color:#4a6b55;margin-top:0.2rem;}
+        .header-actions{display:flex;gap:0.8rem;flex-wrap:wrap;}
+
+        /* STAT CARDS */
+        .stats-row{max-width:1400px;margin:0 auto;padding:0 2rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-bottom:2rem;}
+        .stat-card{background:white;border-radius:14px;padding:1.2rem 1.4rem;border:1px solid #c8ecd4;box-shadow:0 2px 8px rgba(0,0,0,0.03);}
+        .stat-card .stat-val{font-size:2rem;font-weight:900;color:#488a6d;line-height:1;}
+        .stat-card .stat-label{font-size:0.78rem;color:#4a6b55;font-weight:600;margin-top:0.3rem;text-transform:uppercase;letter-spacing:0.06em;}
+
+        /* SEARCH + FILTERS */
+        .controls{max-width:1400px;margin:0 auto;padding:0 2rem 1.2rem;display:flex;gap:0.8rem;flex-wrap:wrap;align-items:center;}
+        .search-box{flex:1;min-width:220px;position:relative;}
+        .search-box input{width:100%;padding:0.65rem 0.9rem 0.65rem 2.2rem;border:1.5px solid #c8ecd4;border-radius:10px;font-size:0.88rem;color:#1a1a1a;font-family:'Nunito Sans',sans-serif;outline:none;}
+        .search-box input:focus{border-color:#488a6d;}
+        .search-box i{position:absolute;left:0.75rem;top:50%;transform:translateY(-50%);color:#4a6b55;font-size:0.85rem;}
+        .filter-select{padding:0.65rem 0.9rem;border:1.5px solid #c8ecd4;border-radius:10px;font-size:0.85rem;font-family:'Nunito Sans',sans-serif;color:#1a1a1a;background:white;outline:none;cursor:pointer;}
+        .filter-select:focus{border-color:#488a6d;}
+        .btn-add{background:#488a6d;color:white;border:none;border-radius:10px;padding:0.65rem 1.2rem;font-size:0.85rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:0.5rem;font-family:'Nunito Sans',sans-serif;transition:0.2s;}
+        .btn-add:hover{background:#c7493a;}
+
+        /* TABLE */
+        .table-wrap{max-width:1400px;margin:0 auto;padding:0 2rem 3rem;overflow-x:auto;}
+        .student-table{width:100%;border-collapse:collapse;background:white;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.04);border:1px solid #c8ecd4;}
+        .student-table th{background:#f0f7f4;padding:0.9rem 1rem;text-align:left;font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#488a6d;border-bottom:1px solid #c8ecd4;white-space:nowrap;}
+        .student-table td{padding:1rem;border-bottom:1px solid #f0f7f4;vertical-align:middle;font-size:0.88rem;}
+        .student-table tr:last-child td{border-bottom:none;}
+        .student-table tr:hover td{background:#fafffe;}
+
+        /* Student info cell */
+        .student-info{display:flex;align-items:center;gap:0.8rem;}
+        .student-avatar{width:36px;height:36px;border-radius:50%;background:#488a6d;color:white;display:flex;align-items:center;justify-content:center;font-size:0.82rem;font-weight:800;flex-shrink:0;}
+        .student-name{font-weight:700;color:#1a1a1a;font-size:0.9rem;}
+        .student-email{font-size:0.78rem;color:#4a6b55;}
+
+        /* Week progress mini bar */
+        .week-bars{display:flex;gap:2px;align-items:flex-end;height:24px;}
+        .week-bar-wrap{display:flex;flex-direction:column;align-items:center;gap:2px;}
+        .week-bar{width:14px;border-radius:3px 3px 0 0;background:#c8ecd4;transition:height 0.3s;}
+        .week-bar.done{background:#488a6d;}
+        .week-bar.partial{background:#82bba3;}
+        .week-label{font-size:9px;color:#4a6b55;font-weight:700;}
+
+        /* Overall progress */
+        .overall-wrap{width:120px;}
+        .overall-bar{height:8px;background:#c8ecd4;border-radius:99px;overflow:hidden;margin-bottom:3px;}
+        .overall-fill{height:100%;background:#488a6d;border-radius:99px;transition:width 0.4s;}
+        .overall-pct{font-size:0.78rem;color:#488a6d;font-weight:700;}
+
+        /* Last login */
+        .last-login{font-size:0.82rem;color:#4a6b55;white-space:nowrap;}
+        .last-login.recent{color:#488a6d;font-weight:600;}
+        .last-login.stale{color:#c65343;}
+
+        /* Status badge */
+        .status-badge{padding:0.2rem 0.7rem;border-radius:20px;font-size:0.72rem;font-weight:700;display:inline-flex;align-items:center;gap:0.3rem;}
+        .status-badge.active{background:#eef7f2;color:#488a6d;}
+        .status-badge.behind{background:#fff8f0;color:#d97706;}
+        .status-badge.inactive{background:#fff0f0;color:#c65343;}
+
+        /* Action buttons */
+        .action-btn{background:none;border:1px solid #c8ecd4;border-radius:7px;padding:0.3rem 0.6rem;font-size:0.78rem;cursor:pointer;color:#488a6d;font-weight:600;transition:0.2s;font-family:'Nunito Sans',sans-serif;}
+        .action-btn:hover{background:#f0f7f4;border-color:#488a6d;}
+        .action-btn.danger{color:#c65343;border-color:#f5c6be;}
+        .action-btn.danger:hover{background:#fff0f0;border-color:#c65343;}
+
+        /* Modal */
+        .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;z-index:999;padding:1rem;display:none;}
+        .modal-overlay.open{display:flex;}
+        .modal{background:white;border-radius:16px;padding:2rem;width:100%;max-width:440px;box-shadow:0 20px 60px rgba(0,0,0,0.15);}
+        .modal h2{font-size:1.2rem;font-weight:800;margin-bottom:1.4rem;color:#1a1a1a;}
+        .modal .form-group{margin-bottom:1rem;}
+        .modal label{display:block;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:#4a6b55;margin-bottom:0.35rem;}
+        .modal input{width:100%;padding:0.65rem 0.9rem;border:1.5px solid #c8ecd4;border-radius:9px;font-size:0.9rem;font-family:'Nunito Sans',sans-serif;color:#1a1a1a;outline:none;}
+        .modal input:focus{border-color:#488a6d;}
+        .modal-actions{display:flex;gap:0.8rem;justify-content:flex-end;margin-top:1.4rem;}
+        .btn-cancel{background:none;border:1px solid #c8ecd4;border-radius:9px;padding:0.55rem 1.1rem;font-size:0.88rem;font-weight:700;cursor:pointer;font-family:'Nunito Sans',sans-serif;color:#4a6b55;}
+        .btn-save{background:#488a6d;color:white;border:none;border-radius:9px;padding:0.55rem 1.4rem;font-size:0.88rem;font-weight:700;cursor:pointer;font-family:'Nunito Sans',sans-serif;transition:0.2s;}
+        .btn-save:hover{background:#c7493a;}
+        .btn-save:disabled{background:#a0c4b0;cursor:not-allowed;}
+        .modal-error{background:#fff0f0;border:1px solid #f5c6be;border-radius:8px;padding:0.6rem 0.8rem;font-size:0.82rem;color:#c65343;margin-top:0.8rem;display:none;}
+        .modal-error.show{display:block;}
+        .modal-success{background:#eef7f2;border:1px solid #c8e6d8;border-radius:8px;padding:0.6rem 0.8rem;font-size:0.82rem;color:#488a6d;margin-top:0.8rem;display:none;}
+        .modal-success.show{display:block;}
+
+        /* Detail drawer */
+        .drawer{position:fixed;right:0;top:0;height:100%;width:480px;max-width:100%;background:white;box-shadow:-8px 0 40px rgba(0,0,0,0.1);transform:translateX(100%);transition:transform 0.3s ease;z-index:998;overflow-y:auto;}
+        .drawer.open{transform:translateX(0);}
+        .drawer-header{padding:1.5rem;border-bottom:1px solid #c8ecd4;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:white;}
+        .drawer-close{background:none;border:none;font-size:1.2rem;cursor:pointer;color:#4a6b55;padding:0.2rem;}
+        .drawer-body{padding:1.5rem;}
+        .module-list-item{display:flex;align-items:center;gap:0.8rem;padding:0.6rem 0;border-bottom:1px solid #f0f7f4;font-size:0.85rem;}
+        .module-list-item:last-child{border-bottom:none;}
+        .module-dot{width:16px;height:16px;border-radius:50%;flex-shrink:0;}
+        .module-dot.done{background:#488a6d;}
+        .module-dot.pending{background:#c8ecd4;}
+        .week-section{margin-bottom:1.4rem;}
+        .week-section h4{font-size:0.78rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#488a6d;margin-bottom:0.5rem;display:flex;justify-content:space-between;}
+
+        /* Loading / empty */
+        .loading-row td{text-align:center;padding:3rem;color:#4a6b55;}
+        .empty-row td{text-align:center;padding:3rem;color:#4a6b55;}
+
+        /* Spinner */
+        .spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin 0.7s linear infinite;}
+        @keyframes spin{to{transform:rotate(360deg);}}
+
+        @media(max-width:768px){
+            .week-bars{gap:1px;} .week-bar{width:10px;} .drawer{width:100%;}
+            .page-header{flex-direction:column;align-items:flex-start;}
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo"><img src="https://elevateme.pro/wp-content/themes/elevateme/assets/images/logo.svg" alt="ElevateMe" style="height:32px;width:auto;"></div>
+    <div class="nav-right">
+        <span class="admin-pill"><i class="fas fa-shield-alt"></i> Admin</span>
+        <button class="btn-signout" onclick="signOut()"><i class="fas fa-sign-out-alt"></i> Sign out</button>
+    </div>
+</nav>
+
+<div class="page-header">
+    <div>
+        <h1>Student Progress Dashboard</h1>
+        <p id="lastUpdated">Loading student data…</p>
+    </div>
+    <div class="header-actions">
+        <button class="btn-add" onclick="openAddModal()"><i class="fas fa-user-plus"></i> Add Student</button>
+    </div>
+</div>
+
+<!-- STAT CARDS -->
+<div class="stats-row" id="statsRow">
+    <div class="stat-card"><div class="stat-val" id="statTotal">—</div><div class="stat-label">Total Students</div></div>
+    <div class="stat-card"><div class="stat-val" id="statActive">—</div><div class="stat-label">Active (last 7 days)</div></div>
+    <div class="stat-card"><div class="stat-val" id="statCompleted">—</div><div class="stat-label">Fully Complete</div></div>
+    <div class="stat-card"><div class="stat-val" id="statAvgProgress">—</div><div class="stat-label">Avg. Overall Progress</div></div>
+</div>
+
+<!-- CONTROLS -->
+<div class="controls">
+    <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Search by name or email…" oninput="filterStudents()"/>
+    </div>
+    <select class="filter-select" id="filterStatus" onchange="filterStudents()">
+        <option value="">All students</option>
+        <option value="active">Active (7 days)</option>
+        <option value="behind">Behind</option>
+        <option value="inactive">Inactive</option>
+    </select>
+    <select class="filter-select" id="filterWeek" onchange="filterStudents()">
+        <option value="">All weeks</option>
+        ${Array.from({length:10},(_,i)=>`<option value="${i+1}">Week ${i+1}</option>`).join('')}
+    </select>
+</div>
+
+<!-- TABLE -->
+<div class="table-wrap">
+    <table class="student-table">
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Overall Progress</th>
+                <th>Week-by-Week</th>
+                <th>Last Login</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="studentTable">
+            <tr class="loading-row"><td colspan="6"><i class="fas fa-circle-notch fa-spin"></i> Loading students…</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ADD STUDENT MODAL -->
+<div class="modal-overlay" id="addModal">
+    <div class="modal">
+        <h2><i class="fas fa-user-plus" style="color:#488a6d;margin-right:0.5rem;"></i>Add New Student</h2>
+        <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="newName" placeholder="Jane Smith"/>
+        </div>
+        <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="newEmail" placeholder="jane@email.com"/>
+        </div>
+        <div class="form-group">
+            <label>Temporary Password</label>
+            <input type="text" id="newPassword" placeholder="Min. 8 characters" value="ElevateMe2024!"/>
+        </div>
+        <div class="modal-error" id="addError"></div>
+        <div class="modal-success" id="addSuccess"></div>
+        <div class="modal-actions">
+            <button class="btn-cancel" onclick="closeAddModal()">Cancel</button>
+            <button class="btn-save" id="addBtn" onclick="addStudent()">Create Account</button>
+        </div>
+    </div>
+</div>
+
+<!-- STUDENT DETAIL DRAWER -->
+<div class="drawer" id="detailDrawer">
+    <div class="drawer-header">
+        <div>
+            <div id="drawerName" style="font-size:1rem;font-weight:800;color:#1a1a1a;"></div>
+            <div id="drawerEmail" style="font-size:0.82rem;color:#4a6b55;margin-top:2px;"></div>
+        </div>
+        <button class="drawer-close" onclick="closeDrawer()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="drawer-body" id="drawerBody"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = 'https://jlfbmawoyiwzvzklngxr.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpsZmJtYXdveWl3enZ6a2xuZ3hyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5NDI0OTMsImV4cCI6MjA4OTUxODQ5M30.JuMbxTyAhujTB4RqPiKbn5d4pxqK67EO_CTBj1xwt9o';
+const _sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// Admin emails — add yours here
+const ADMIN_EMAILS = ['nitti.v@elevateme.pro', 'divina.r@elevateme.pro'];
+
+const WEEKS = 10;
+const WEEK_MODULES = {
+    1:['w1m1','w1m2','w1m3','w1m4','w1m5'],
+    2:['w2m1','w2m2','w2m3','w2m4','w2m5','w2m6','w2m7','w2m8','w2m9','w2m10'],
+    3:['w3m1','w3m2','w3m3','w3m4'],
+    4:['w4m1','w4m2','w4m3','w4m4'],
+    5:['w5m1','w5m2','w5m3'],
+    6:['w6m1','w6m2','w6m3','w6m4','w6m5'],
+    7:['w7m1','w7m2','w7m3','w7m4','w7m5','w7m6'],
+    8:['w8m1','w8m2','w8m3','w8m4'],
+    9:['w9m1','w9m2','w9m3'],
+    10:['w10m1','w10m2','w10m3']
+};
+
+let allStudents  = [];
+let allProgress  = {};
+
+// ── AUTH CHECK ──
+(async () => {
+    const { data: { session } } = await _sb.auth.getSession();
+    if (!session) { window.location.href = './login.html'; return; }
+    if (!ADMIN_EMAILS.includes(session.user.email)) {
+        alert('Access denied. This page is for admins only.');
+        window.location.href = './'; return;
+    }
+    await loadData();
+})();
+
+async function loadData() {
+    // Load all profiles
+    const { data: profiles } = await _sb.from('profiles').select('*').order('email');
+    // Load all progress records
+    const { data: progressRows } = await _sb.from('progress').select('user_id, module_id, completed_at');
+
+    // Build progress map: { userId: { moduleId: completed_at } }
+    allProgress = {};
+    if (progressRows) progressRows.forEach(r => {
+        if (!allProgress[r.user_id]) allProgress[r.user_id] = {};
+        allProgress[r.user_id][r.module_id] = r.completed_at;
+    });
+
+    allStudents = (profiles || []).filter(p => !ADMIN_EMAILS.includes(p.email));
+    renderStats();
+    renderTable(allStudents);
+    document.getElementById('lastUpdated').textContent = `${allStudents.length} students · Updated ${new Date().toLocaleTimeString()}`;
+}
+
+function getOverallPct(userId) {
+    const allMods = Object.values(WEEK_MODULES).flat();
+    const done = allMods.filter(m => allProgress[userId]?.[m]).length;
+    return Math.round(done / allMods.length * 100);
+}
+
+function getWeekPct(userId, week) {
+    const mods = WEEK_MODULES[week] || [];
+    if (!mods.length) return 0;
+    const done = mods.filter(m => allProgress[userId]?.[m]).length;
+    return Math.round(done / mods.length * 100);
+}
+
+function getStatus(student) {
+    const lastLogin = student.last_login ? new Date(student.last_login) : null;
+    const daysAgo   = lastLogin ? (Date.now() - lastLogin) / 86400000 : 999;
+    const overall   = getOverallPct(student.id);
+    if (daysAgo > 14) return 'inactive';
+    if (overall < 30 && daysAgo > 7) return 'behind';
+    return 'active';
+}
+
+function formatDate(iso) {
+    if (!iso) return 'Never';
+    const d = new Date(iso);
+    const daysAgo = Math.floor((Date.now() - d) / 86400000);
+    if (daysAgo === 0) return 'Today';
+    if (daysAgo === 1) return 'Yesterday';
+    if (daysAgo < 7)  return `${daysAgo}d ago`;
+    return d.toLocaleDateString('en-US', { month:'short', day:'numeric' });
+}
+
+function initials(email) {
+    const name = email.split('@')[0].replace(/[._]/g,' ');
+    return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2);
+}
+
+function renderStats() {
+    const total   = allStudents.length;
+    const active  = allStudents.filter(s => getStatus(s) === 'active').length;
+    const done100 = allStudents.filter(s => getOverallPct(s.id) === 100).length;
+    const avg     = total ? Math.round(allStudents.reduce((sum,s) => sum + getOverallPct(s.id), 0) / total) : 0;
+    document.getElementById('statTotal').textContent    = total;
+    document.getElementById('statActive').textContent   = active;
+    document.getElementById('statCompleted').textContent = done100;
+    document.getElementById('statAvgProgress').textContent = avg + '%';
+}
+
+function renderTable(students) {
+    const tbody = document.getElementById('studentTable');
+    if (!students.length) {
+        tbody.innerHTML = '<tr class="empty-row"><td colspan="6"><i class="fas fa-users" style="font-size:1.5rem;margin-bottom:0.5rem;display:block;"></i>No students found</td></tr>';
+        return;
+    }
+    tbody.innerHTML = students.map(s => {
+        const overall = getOverallPct(s.id);
+        const status  = getStatus(s);
+        const daysAgo = s.last_login ? Math.floor((Date.now() - new Date(s.last_login)) / 86400000) : 999;
+        const statusMap = { active:'Active', behind:'Behind', inactive:'Inactive' };
+        const statusIcon = { active:'fa-circle', behind:'fa-exclamation-circle', inactive:'fa-times-circle' };
+
+        const weekBars = Array.from({length:WEEKS}, (_,i) => {
+            const pct = getWeekPct(s.id, i+1);
+            const cls = pct === 100 ? 'done' : pct > 0 ? 'partial' : '';
+            const h   = Math.max(4, Math.round(pct * 0.2));
+            return `<div class="week-bar-wrap"><div class="week-bar ${cls}" style="height:${h}px;" title="Week ${i+1}: ${pct}%"></div><div class="week-label">${i+1}</div></div>`;
+        }).join('');
+
+        return `<tr>
+            <td>
+                <div class="student-info">
+                    <div class="student-avatar">${initials(s.email)}</div>
+                    <div>
+                        <div class="student-name">${s.full_name || s.email.split('@')[0]}</div>
+                        <div class="student-email">${s.email}</div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="overall-wrap">
+                    <div class="overall-bar"><div class="overall-fill" style="width:${overall}%"></div></div>
+                    <div class="overall-pct">${overall}% complete</div>
+                </div>
+            </td>
+            <td><div class="week-bars">${weekBars}</div></td>
+            <td>
+                <div class="last-login ${daysAgo <= 7 ? 'recent' : daysAgo > 14 ? 'stale' : ''}">
+                    <i class="fas fa-clock" style="font-size:0.75rem;margin-right:4px;"></i>
+                    ${formatDate(s.last_login)}
+                </div>
+            </td>
+            <td><span class="status-badge ${status}"><i class="fas ${statusIcon[status]}" style="font-size:0.65rem;"></i>${statusMap[status]}</span></td>
+            <td style="display:flex;gap:0.4rem;flex-wrap:wrap;">
+                <button class="action-btn" onclick='openDrawer(${JSON.stringify(s)})'><i class="fas fa-eye"></i> Detail</button>
+                <button class="action-btn danger" onclick="resetPassword('${s.email}')"><i class="fas fa-key"></i> Reset</button>
+            </td>
+        </tr>`;
+    }).join('');
+}
+
+function filterStudents() {
+    const q      = document.getElementById('searchInput').value.toLowerCase();
+    const status = document.getElementById('filterStatus').value;
+    const week   = parseInt(document.getElementById('filterWeek').value) || 0;
+    let filtered = allStudents.filter(s => {
+        const matchQ    = !q || s.email.toLowerCase().includes(q) || (s.full_name||'').toLowerCase().includes(q);
+        const matchStat = !status || getStatus(s) === status;
+        const matchWeek = !week || getWeekPct(s.id, week) > 0;
+        return matchQ && matchStat && matchWeek;
+    });
+    renderTable(filtered);
+}
+
+// ── ADD STUDENT ──
+async function addStudent() {
+    const name  = document.getElementById('newName').value.trim();
+    const email = document.getElementById('newEmail').value.trim();
+    const pass  = document.getElementById('newPassword').value.trim();
+    const errEl = document.getElementById('addError');
+    const succEl = document.getElementById('addSuccess');
+    errEl.classList.remove('show'); succEl.classList.remove('show');
+    if (!email || !pass) { errEl.textContent = 'Email and password are required.'; errEl.classList.add('show'); return; }
+    if (pass.length < 8) { errEl.textContent = 'Password must be at least 8 characters.'; errEl.classList.add('show'); return; }
+
+    const btn = document.getElementById('addBtn');
+    btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Creating…';
+
+    // Use Admin API via edge function (see setup guide)
+    // For now we use signUp which sends a confirmation email
+    const { data, error } = await _sb.auth.admin?.createUser?.({
+        email, password: pass,
+        email_confirm: true,
+        user_metadata: { full_name: name }
+    }) ?? await _sb.auth.signUp({ email, password: pass, options: { data: { full_name: name } } });
+
+    btn.disabled = false; btn.innerHTML = 'Create Account';
+
+    if (error) { errEl.textContent = error.message; errEl.classList.add('show'); }
+    else {
+        // Insert profile record
+        if (data?.user) {
+            await _sb.from('profiles').upsert({ id: data.user.id, email, full_name: name }, { onConflict: 'id' });
+        }
+        succEl.textContent = `✓ Account created for ${email}. A confirmation email has been sent.`;
+        succEl.classList.add('show');
+        setTimeout(() => { closeAddModal(); loadData(); }, 2000);
+    }
+}
+
+async function resetPassword(email) {
+    if (!confirm(`Send a password reset email to ${email}?`)) return;
+    const { error } = await _sb.auth.resetPasswordForEmail(email, { redirectTo: window.location.origin + '/login.html' });
+    if (error) alert('Error: ' + error.message);
+    else alert(`✓ Reset email sent to ${email}`);
+}
+
+// ── DRAWER ──
+function openDrawer(student) {
+    document.getElementById('drawerName').textContent  = student.full_name || student.email.split('@')[0];
+    document.getElementById('drawerEmail').textContent = student.email;
+    const body = document.getElementById('drawerBody');
+    const prog = allProgress[student.id] || {};
+
+    const overall = getOverallPct(student.id);
+    let html = `
+        <div style="background:#eef7f2;border-radius:12px;padding:1rem;margin-bottom:1.4rem;border:1px solid #c8e6d8;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+                <span style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#488a6d;">Overall Progress</span>
+                <span style="font-size:1.2rem;font-weight:900;color:#488a6d;">${overall}%</span>
+            </div>
+            <div style="height:10px;background:white;border-radius:99px;overflow:hidden;">
+                <div style="height:100%;width:${overall}%;background:#488a6d;border-radius:99px;"></div>
+            </div>
+            <div style="font-size:0.78rem;color:#4a6b55;margin-top:0.5rem;">
+                Last login: <strong>${formatDate(student.last_login)}</strong>
+            </div>
+        </div>`;
+
+    const WEEK_NAMES = {1:'Foundations & Job Search',2:'Resume Building & Recruitment',3:'Elevator Pitch & Mock Interview',4:'Communication Skills',5:'Preparing for Interviews',6:'Networking on LinkedIn',7:'Informational Interviews',8:'Handling Job Offers',9:'Cultural Sensitivity',10:'Success on the Job'};
+
+    for (let w = 1; w <= WEEKS; w++) {
+        const mods = WEEK_MODULES[w] || [];
+        const doneMods = mods.filter(m => prog[m]).length;
+        const pct = mods.length ? Math.round(doneMods / mods.length * 100) : 0;
+        html += `<div class="week-section">
+            <h4>Week ${w}: ${WEEK_NAMES[w]} <span style="color:${pct===100?'#488a6d':'#4a6b55'}">${pct}%</span></h4>
+            ${mods.map(m => `<div class="module-list-item">
+                <div class="module-dot ${prog[m] ? 'done' : 'pending'}"></div>
+                <span style="flex:1;color:${prog[m]?'#0a1a0f':'#7f8c8d'}">${m}</span>
+                ${prog[m] ? `<span style="font-size:0.72rem;color:#488a6d;">${new Date(prog[m]).toLocaleDateString('en-US',{month:'short',day:'numeric'})}</span>` : ''}
+            </div>`).join('')}
+        </div>`;
+    }
+    body.innerHTML = html;
+    document.getElementById('detailDrawer').classList.add('open');
+}
+
+function closeDrawer() { document.getElementById('detailDrawer').classList.remove('open'); }
+function openAddModal() { document.getElementById('addModal').classList.add('open'); }
+function closeAddModal() {
+    document.getElementById('addModal').classList.remove('open');
+    document.getElementById('addError').classList.remove('show');
+    document.getElementById('addSuccess').classList.remove('show');
+    document.getElementById('newName').value = '';
+    document.getElementById('newEmail').value = '';
+    document.getElementById('newPassword').value = 'ElevateMe2024!';
+}
+
+async function signOut() {
+    await _sb.auth.signOut();
+    window.location.href = './login.html';
+}
+
+// Close modal/drawer on outside click
+document.getElementById('addModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeAddModal(); });
+</script>
+</body>
+</html>
