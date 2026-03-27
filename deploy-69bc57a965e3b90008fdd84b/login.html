@@ -176,7 +176,7 @@ async function handleReset() {
     btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>';
 
     const { error } = await _sb.auth.resetPasswordForEmail(email, {
-        redirectTo: window.location.origin + '/login.html'
+        redirectTo: window.location.origin + '/reset-password.html'
     });
 
     btn.disabled = false; btn.innerHTML = 'Send Reset Link';
