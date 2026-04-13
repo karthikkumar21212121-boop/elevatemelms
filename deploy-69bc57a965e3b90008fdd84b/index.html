@@ -192,10 +192,19 @@ const SUPABASE_URL = 'https://jlfbmawoyiwzvzklngxr.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpsZmJtYXdveWl3enZ6a2xuZ3hyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5NDI0OTMsImV4cCI6MjA4OTUxODQ5M30.JuMbxTyAhujTB4RqPiKbn5d4pxqK67EO_CTBj1xwt9o';
 const _sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// Auth guard
+// Auth guard & Progress Sync
 (async () => {
     const { data: { session } } = await _sb.auth.getSession();
     if (!session) { window.location.href = 'login.html'; return; }
+    
+    // Fetch real progress from Supabase to overwrite local device storage
+    const { data: profile } = await _sb.from('profiles').select('*').eq('id', session.user.id).single();
+    if (profile) {
+        for (let i = 1; i <= 10; i++) {
+            localStorage.setItem(`em_week${i}_progress`, profile[`week${i}_progress`] || 0);
+        }
+    }
+    renderGrid();
 })();
 
 window.signOut = async function() { await _sb.auth.signOut(); window.location.href = 'login.html'; };
