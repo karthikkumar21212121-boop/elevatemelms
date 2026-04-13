@@ -176,9 +176,18 @@
         <option value="inactive">Inactive</option>
     </select>
     <select class="filter-select" id="filterWeek" onchange="filterStudents()">
-        <option value="">All weeks</option>
-        ${Array.from({length:10},(_,i)=>`<option value="${i+1}">Week ${i+1}</option>`).join('')}
-    </select>
+    <option value="">All weeks</option>
+    <option value="1">Week 1</option>
+    <option value="2">Week 2</option>
+    <option value="3">Week 3</option>
+    <option value="4">Week 4</option>
+    <option value="5">Week 5</option>
+    <option value="6">Week 6</option>
+    <option value="7">Week 7</option>
+    <option value="8">Week 8</option>
+    <option value="9">Week 9</option>
+    <option value="10">Week 10</option>
+</select>
 </div>
 
 <!-- TABLE -->
@@ -214,7 +223,7 @@
         </div>
         <div class="form-group">
             <label>Temporary Password</label>
-            <input type="text" id="newPassword" placeholder="Min. 8 characters" value="ElevateMe2024!"/>
+            <input type="text" id="newPassword" placeholder="Min. 8 characters" value="ElevateMe2026!"/>
         </div>
         <div class="modal-error" id="addError"></div>
         <div class="modal-success" id="addSuccess"></div>
